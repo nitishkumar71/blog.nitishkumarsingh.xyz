@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: nitishkumar71/blog.nitishkumarsingh.xyz
+
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: post
+    label: Posts
+    folder: posts
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    create: true
+    fields:
+      # - { name: path, label: Path }
+      - { name: date, label: Date, widget: date }
+      - { name: title, label: Title }
+      - { name: html, label: Body, widget: markdown }
+      # - { name: cover, label: Cover, widget: image, required: false,}
+      - { name: tags, label: Tags, widget: list}
+      - { name: excerpt, label: Excerpt, widget: text}

@@ -9,36 +9,30 @@ import style from '../styles/post.module.css'
 const Post = ({
   title,
   date,
-  path,
-  coverImage,
-  author,
+  slug,
   excerpt,
+  tags,
   html,
   previousPost,
   nextPost,
 }) => {
-  const previousPath = previousPost && previousPost.frontmatter.path
+  const previousPath = previousPost && previousPost.fields.slug
   const previousLabel = previousPost && previousPost.frontmatter.title
-  const nextPath = nextPost && nextPost.frontmatter.path
+  const nextPath = nextPost && nextPost.fields.slug
   const nextLabel = nextPost && nextPost.frontmatter.title
 
   return (
     <div className={style.post}>
       <div className={style.postContent}>
-        <h1>{excerpt ? <Link to={path}>{title}</Link> : title}</h1>
+        <h1>{excerpt ? <Link to={slug}>{title}</Link> : title}</h1>
         <div className={style.meta}>
-          {date} {author && <>— written by {author}</>}
+          {date}
         </div>
-        {coverImage && (
-          <Img
-            fluid={coverImage.childImageSharp.fluid}
-            className={style.coverImage}
-          />
-        )}
         {excerpt ? (
           <>
             <p>{excerpt}</p>
-            <Link to={path} className={style.readMore}>
+            <p>{tags}</p>
+            <Link to={slug} className={style.readMore}>
               Read more →
             </Link>
           </>
@@ -61,11 +55,10 @@ const Post = ({
 Post.propTypes = {
   title: PropTypes.string,
   date: PropTypes.string,
-  path: PropTypes.string,
-  coverImage: PropTypes.object,
-  author: PropTypes.string,
+  slug: PropTypes.string,
   excerpt: PropTypes.string,
   html: PropTypes.string,
+  tags: PropTypes.string,
   previousPost: PropTypes.object,
   nextPost: PropTypes.object,
 }

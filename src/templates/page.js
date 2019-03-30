@@ -5,8 +5,11 @@ import Layout from '../components/layout'
 import Post from '../components/post'
 
 const BlogPostTemplate = ({ data, pageContext }) => {
+  console.log(data);
   const {
-    frontmatter: { title, date, path, author, coverImage },
+    fields: { slug },
+    // frontmatter: { title, date, coverImage },
+    frontmatter: { title, date},
     id,
     html,
   } = data.markdownRemark
@@ -18,9 +21,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         key={id}
         title={title}
         date={date}
-        path={path}
-        author={author}
-        coverImage={coverImage}
+        slug={slug}
         html={html}
         previousPost={previous}
         nextPost={next}
@@ -40,21 +41,22 @@ BlogPostTemplate.propTypes = {
 }
 
 export const pageQuery = graphql`
-  query($path: String) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query($pathSlug: String) {
+    markdownRemark(fields: { slug: { eq: $pathSlug } }) {
+      fields{
+        slug
+      }
       frontmatter {
         title
         date(formatString: "DD MMMM YYYY")
-        path
-        author
         excerpt
-        coverImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
+        #coverImage {
+        #  childImageSharp {
+        #    fluid(maxWidth: 800) {
+        #      ...GatsbyImageSharpFluid
+        #    }
+        #  }
+        #}
       }
       id
       html

@@ -12,7 +12,8 @@ const MainMenu = ({ mainMenu, mainMenuItems, isMobileMenu }) => {
 
   return menu.map((menuItem, index) => (
     <li key={index}>
-      <Link to={menuItem.path}>{menuItem.title}</Link>
+    <a href={menuItem.path} target={menuItem.target}>{menuItem.title}</a>
+      {/* <Link to={menuItem.path} target={menuItem.target}>{menuItem.title}</Link> */}
     </li>
   ))
 }
@@ -127,6 +128,7 @@ Menu.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       path: PropTypes.string,
+      target: PropTypes.string,      
     }),
   ),
   mainMenuItems: PropTypes.number,
@@ -143,6 +145,7 @@ SubMenu.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       path: PropTypes.string,
+      target: PropTypes.string,
     }),
   ),
   mainMenuItems: PropTypes.number,

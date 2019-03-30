@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-hello-friend",
+  "name": "nitishkumar-blog",
   "private": true,
-  "description": "A simple starter for Gatsby. That's it.",
+  "description": "Let's discuss everthing aboout technology!",
   "version": "0.1.0",
-  "author": "Radek Kozieł <radoslaw.koziel@gmail.com>",
+  "author": "nitishkumarsingh71@gmail.com",
   "keywords": [
     "gatsby",
     "minimal",
@@ -20,13 +20,15 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.js\"",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
+    "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "dependencies": {
     "gatsby": "^2.0.76",
     "gatsby-awesome-pagination": "^0.3.3",
     "gatsby-image": "^2.0.20",
     "gatsby-plugin-manifest": "^2.0.9",
+    "gatsby-plugin-netlify-cms": "^3.0.12",
     "gatsby-plugin-offline": "^2.0.16",
     "gatsby-plugin-postcss": "^2.0.2",
     "gatsby-plugin-react-helmet": "^3.0.2",
@@ -36,6 +38,7 @@
     "gatsby-source-filesystem": "^2.0.8",
     "gatsby-transformer-remark": "^2.1.19",
     "gatsby-transformer-sharp": "^2.1.8",
+    "netlify-cms": "^2.4.2",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
@@ -53,6 +56,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
     "gatsby-remark-embed-video": "^1.7.0",
+    "gh-pages": "^2.0.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-mixins": "^6.2.1",
@@ -63,9 +67,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/panr/gatsby-starter-hello-friend"
+    "url": "https://github.com/nitishkumar71/blog.nitishkumarsingh.xyz"
   },
   "bugs": {
-    "url": "https://github.com/panr/gatsby-starter-hello-friend/issues"
+    "url": "https://github.com/nitishkumar71/blog.nitishkumarsingh.xyz/issues"
   }
 }

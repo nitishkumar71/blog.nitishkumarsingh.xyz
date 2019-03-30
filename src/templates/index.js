@@ -16,7 +16,8 @@ const Index = ({ data, pageContext: { nextPagePath, previousPagePath } }) => {
         const {
           id,
           excerpt: autoExcerpt,
-          frontmatter: { title, date, path, author, coverImage, excerpt },
+          fields: { slug },
+          frontmatter: { title, date, excerpt, tags },
         } = node
 
         return (
@@ -24,9 +25,8 @@ const Index = ({ data, pageContext: { nextPagePath, previousPagePath } }) => {
             key={id}
             title={title}
             date={date}
-            path={path}
-            author={author}
-            coverImage={coverImage}
+            slug={slug}
+            tags={tags}
             excerpt={excerpt || autoExcerpt}
           />
         )
@@ -62,19 +62,14 @@ export const postsQuery = graphql`
         node {
           id
           excerpt
+          fields{
+            slug
+          }
           frontmatter {
             title
             date(formatString: "DD MMMM YYYY")
-            path
-            author
+            tags
             excerpt
-            coverImage {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
           }
         }
       }

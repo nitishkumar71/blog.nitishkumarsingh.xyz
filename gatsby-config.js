@@ -7,56 +7,50 @@ const postCSSMixins = require('postcss-mixins')
 
 module.exports = {
   siteMetadata: {
-    title: `Hello Friend`,
-    description: `A simple starter for Gatsby. That's it.`,
+    title: `Nitishkumar's Blog Home`,
+    description: `Let's talk about everything in technology`,
     copyrights: '',
-    author: `@panr`,
+    author: `Nitishkumar Singh`,
     logo: {
-      src: '',
-      alt: '',
+      src: 'src/images/myAvatar.svg',
+      alt: 'A lot of lengthy talks!',
     },
-    logoText: 'hello friend',
-    defaultTheme: 'dark',
-    postsPerPage: 5,
+    logoText: `Nitishkumar's Blog`,
+    defaultTheme: 'light',
+    postsPerPage: 10,
     showMenuItems: 2,
     menuMoreText: 'Show more',
     mainMenu: [
       {
         title: 'About',
-        path: '/about',
-      },
-      {
-        title: 'Showcase',
-        path: '/showcase',
-      },
-      {
-        title: 'Example',
-        path: '/example',
-      },
+        path: 'https://twitter.com/Nitishkumar071',
+        target: '_blank'
+      }
     ],
   },
   plugins: [
+    `gatsby-plugin-netlify-cms`,
     `babel-preset-gatsby`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/images`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/posts`,
+        path: `${__dirname}/posts`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `pages`,
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/pages`,
       },
     },
     {
@@ -114,13 +108,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-hello-friend`,
-        short_name: `hello-friend`,
+        name: `nitishkumar-blog`,
+        short_name: `nitishkumar-blog`,
         start_url: `/`,
         background_color: `#292a2d`,
         theme_color: `#292a2d`,
         display: `minimal-ui`,
-        icon: `src/images/hello-icon.png`,
+        icon: `src/images/myAvatar.svg`,
       },
     },
   ],
