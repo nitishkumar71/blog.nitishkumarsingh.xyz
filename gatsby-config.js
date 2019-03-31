@@ -16,7 +16,7 @@ module.exports = {
       alt: 'A lot of lengthy talks!',
     },
     logoText: `A lot of lengthy talks!`,
-    defaultTheme: 'light',
+    defaultTheme: 'dark',
     postsPerPage: 10,
     showMenuItems: 2,
     menuMoreText: 'Show more',

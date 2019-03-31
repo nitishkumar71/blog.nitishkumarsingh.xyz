@@ -5,13 +5,13 @@ import Layout from '../components/layout'
 import Post from '../components/post'
 
 const BlogPostTemplate = ({ data, pageContext }) => {
-  console.log(data);
+  // console.log(data);
   const {
     fields: { slug },
     // frontmatter: { title, date, coverImage },
-    frontmatter: { title, date},
-    id,
+    frontmatter: { title, date, tags},
     html,
+    id
   } = data.markdownRemark
   const { next, previous } = pageContext
 
@@ -23,6 +23,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         date={date}
         slug={slug}
         html={html}
+        tags={tags}
         previousPost={previous}
         nextPost={next}
       />
@@ -50,6 +51,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "DD MMMM YYYY")
         excerpt
+        tags
         #coverImage {
         #  childImageSharp {
         #    fluid(maxWidth: 800) {
@@ -58,8 +60,8 @@ export const pageQuery = graphql`
         #  }
         #}
       }
-      id
       html
+      id
     }
   }
 `
