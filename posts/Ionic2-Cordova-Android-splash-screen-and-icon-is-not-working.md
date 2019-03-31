@@ -8,12 +8,5 @@ html: >-
 tags:
   - angular
   - Cordova
-  - gesture
-  - Hammer.js
   - Ionic
-excerpt: >-
-  Gesture event support is also one of the reason behind popularity of mobile
-  applications. Capturing gesture events can be easily done in case of native
-  mobile applications, since all the mobile platform expose gesture events in
-  native code.
 ---
