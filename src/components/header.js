@@ -68,7 +68,7 @@ class Header extends React.Component {
           <div className={style.inner}>
             <Link to="/">
               <div className={style.logo}>
-                {siteLogo.src ? (
+                {/* {siteLogo.src ? (
                   <img src={siteLogo.src} alt={siteLogo.alt} />
                 ) : (
                   <>
@@ -76,7 +76,8 @@ class Header extends React.Component {
                     <span className={style.text}>{logoText}</span>
                     <span className={style.cursor} />
                   </>
-                )}
+                )} */}
+                <span className={style.text}>{siteLogo.alt}</span>
               </div>
             </Link>
             <span className={style.right}>

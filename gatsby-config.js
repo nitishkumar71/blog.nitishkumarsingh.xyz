@@ -12,10 +12,10 @@ module.exports = {
     copyrights: '',
     author: `Nitishkumar Singh`,
     logo: {
-      src: 'src/images/myAvatar.svg',
+      src: 'static/myAvatar.svg',
       alt: 'A lot of lengthy talks!',
     },
-    logoText: `Nitishkumar's Blog`,
+    logoText: `A lot of lengthy talks!`,
     defaultTheme: 'light',
     postsPerPage: 10,
     showMenuItems: 2,
