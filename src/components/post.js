@@ -31,7 +31,7 @@ const Post = ({
         {excerpt ? (
           <>
             <p>{excerpt}</p>
-            <p>{tags}</p>
+            <p><b>{tags.reduce((prev, curr) => [prev, ', ', curr])}</b></p>
             <Link to={slug} className={style.readMore}>
               Read more →
             </Link>
@@ -58,7 +58,7 @@ Post.propTypes = {
   slug: PropTypes.string,
   excerpt: PropTypes.string,
   html: PropTypes.string,
-  tags: PropTypes.string,
+  tags: PropTypes.array,
   previousPost: PropTypes.object,
   nextPost: PropTypes.object,
 }

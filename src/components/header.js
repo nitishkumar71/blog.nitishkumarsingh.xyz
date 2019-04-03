@@ -26,7 +26,6 @@ class Header extends React.Component {
     const { userTheme } = this.state
     const opositeTheme =
       userTheme === 'dark' || userTheme === null ? 'light' : 'dark'
-
     this.setState({ userTheme: opositeTheme })
     typeof window !== 'undefined' &&
       window.localStorage.setItem('theme', opositeTheme)

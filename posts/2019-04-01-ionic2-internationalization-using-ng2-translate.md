@@ -43,21 +43,9 @@ create a folder **i18n** in **assets** folder of your ionic project, and add two
 
 ```
 {
-```
-
-```
-    "title":"Change language",
-```
-
-```
-    "welcome":"an example of multi-language support",
-```
-
-```
-    "language":"Language"
-```
-
-```
+  "title":"Change language",
+  "welcome":"an example of multi-language support",
+  "language":"Language"
 }
 ```
 
@@ -65,21 +53,9 @@ create a folder **i18n** in **assets** folder of your ionic project, and add two
 
 ```
 {
-```
-
-```
-    "title":"भाषा बदलो",
-```
-
-```
-    "welcome":"बहु-भाषा समर्थन का उदाहरण",
-```
-
-```
-    "language":"भाषा"
-```
-
-```
+  "title":"भाषा बदलो",
+  "welcome":"बहु-भाषा समर्थन का उदाहरण",
+  "language":"भाषा"
 }
 ```
 
@@ -93,45 +69,16 @@ it will create a file app-languages.ts in a folder named provider. Change your f
 
 ```
 import { Injectable } from '@angular/core';
-```
-
-```
 @Injectable()
-```
-
-```
 export class AppLanguages {
-```
-
-```
   private languages: String[];
-```
-
-```
   constructor() {
-```
-
-```
     this.languages = ['en', 'hi'];
-```
-
-```
   }
-```
 
-```
   public getLanguages(): String[] {
-```
-
-```
     return this.languages;
-```
-
-```
   }
-```
-
-```
 }
 ```
 
@@ -139,13 +86,7 @@ Open app.module.ts and import two HttpModule and TranslateModule
 
 ```
 import { HttpModule, Http } from '@angular/http';
-```
-
-```
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
-```
-
-```
 import { AppLanguages } from '../providers/app-languages';
 ```
 
@@ -153,13 +94,7 @@ put the following code within app.module.ts
 
 ```
 export function createTranslateLoader(http: Http) {
-```
-
-```
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
-```
-
-```
 }
 ```
 
@@ -171,101 +106,29 @@ Now change @NgModule to look something like this
 
 ```
 @NgModule({
-```
-
-```
   declarations: [
-```
-
-```
     MyApp,
-```
-
-```
     HomePage
-```
-
-```
   ],
-```
-
-```
   imports: [
-```
-
-```
     HttpModule,
-```
-
-```
     TranslateModule.forRoot({
-```
-
-```
       provide: TranslateLoader,
-```
-
-```
       useFactory: (createTranslateLoader),
-```
-
-```
       deps: [Http]
-```
-
-```
     }),
-```
-
-```
     IonicModule.forRoot(MyApp)
-```
-
-```
   ],
-```
-
-```
   bootstrap: [IonicApp],
-```
-
-```
   entryComponents: [
-```
-
-```
     MyApp,
-```
-
-```
     HomePage
-```
-
-```
   ],
-```
-
-```
   providers: [
-```
-
-```
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-```
-
-```
     AppLanguages
-```
-
-```
   ]
-```
-
-```
 })
-```
-
-```
 export class AppModule { }
 ```
 
@@ -275,9 +138,6 @@ Now open app.component.ts and import
 
 ```
 import { TranslateService } from 'ng2-translate';
-```
-
-```
 import { AppLanguages } from '../providers/app-languages';
 ```
 
@@ -285,109 +145,27 @@ now update your class MyApp to look something like this
 
 ```
 export class MyApp {
-```
-
-```
   rootPage = HomePage;
-```
-
-```
- 
-```
-
-```
   constructor(platform: Platform, private translate: TranslateService,
-```
-
-```
     private appLanguages: AppLanguages) {
-```
-
-```
     platform.ready().then(() => {
-```
-
-```
       // Okay, so the platform is ready and our plugins are available.
-```
-
-```
       // Here you can do any higher level native things you might need.
-```
-
-```
       StatusBar.styleDefault();
-```
-
-```
       Splashscreen.hide();
-```
-
-```
       this.configNG2();
-```
-
-```
     });
-```
-
-```
   }
-```
 
-```
- 
-```
-
-```
   private configNG2() {
-```
-
-```
- 
-```
-
-```
     // this language will be used as a fallback when a translation isn't found in the current language
-```
-
-```
     this.translate.setDefaultLang("en");
-```
-
-```
- 
-```
-
-```
     // Detect current Language
-```
-
-```
     var userLang = navigator.language.split("-")[0];
-```
-
-```
     userLang=(this.appLanguages.getLanguages().indexOf(userLang)>-1)?userLang:"en";
-```
-
-```
- 
-```
-
-```
     // the lang to use, if the lang is not available, it will use the current loader to get them
-```
-
-```
     this.translate.use(userLang);
-```
-
-```
   }
-```
-
-```
 }
 ```
 
@@ -399,61 +177,20 @@ Inject AppLangauge in the home.ts and change our home.ts
 
 ```
 import { Component } from '@angular/core';
-```
-
-```
 import { TranslateService } from "ng2-translate";
-```
-
-```
 import { NavController } from 'ionic-angular';
-```
-
-```
 import { AppLanguages } from '../../providers/app-languages'; 
-```
 
-```
 @Component({
-```
-
-```
   selector: 'page-home',
-```
-
-```
   templateUrl: 'home.html'
-```
-
-```
 })
-```
-
-```
 export class HomePage {
-```
-
-```
   private languages: Array<string>;
-```
-
-```
   constructor(public navCtrl: NavController, public translate: TranslateService
-```
-
-```
   , public appLanguages: AppLanguages) {
-```
-
-```
     this.languages = appLanguages.getLanguages();
-```
-
-```
   }
-```
-
-```
 }
 ```
 
@@ -461,85 +198,24 @@ now configure home.html in your application as shown
 
 ```
 <ion-header>
-```
-
-```
   <ion-navbar>
-```
-
-```
     <ion-title>
-```
-
-```
       {{ 'title' | translate}}
-```
-
-```
     </ion-title>
-```
-
-```
   </ion-navbar>
-```
-
-```
 </ion-header>
-```
-
-```
- 
-```
-
-```
 <ion-content padding>
-```
-
-```
  <ion-list>
-```
-
-```
     <ion-item>
-```
-
-```
       <p>{{'welcome' | translate}}</p>
-```
-
-```
     </ion-item>
-```
-
-```
     <ion-item>
-```
-
-```
       <ion-label>{{'language' | translate}}</ion-label>
-```
-
-```
       <ion-select [(ngmodel)]="currentLang" (ionchange)="translate.use(currentLang)">
-```
-
-```
         <ion-option *ngfor="let language of languages" [value]="language" [selected]="language === translate.currentLang">{{ language }}</ion-option>
-```
-
-```
       </ion-select>
-```
-
-```
     </ion-item>
-```
-
-```
   </ion-list>
-```
-
-```
 </ion-content>
 ```
 

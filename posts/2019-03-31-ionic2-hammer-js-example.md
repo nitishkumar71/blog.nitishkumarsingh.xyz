@@ -57,8 +57,7 @@ To enable rotation first we need to import **HAMMER_GESTURE_CONFIG**,
 **HammerGestureConfig** into app.module.ts
 
 ```
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from
-'@angular/platform-browser';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 ```
 
 Now let's create our own **CustomHammerConfig** class in app.module.ts, which
@@ -66,10 +65,10 @@ will extend class **HammerGestureConfig** to override Hammer.js Configuration.
 
 ```
 export class CustomHammerConfig extends HammerGestureConfig {
-overrides = {
-'rotate': { enable: true } //rotate is disabled by default, so we need to
-enable it
-}
+  overrides = {
+  'rotate': { enable: true } 
+  //rotate is disabled by default, so we need to enable it
+  }
 }
 ```
 
@@ -77,26 +76,26 @@ Now let's change providers in NgModule as shown
 
 ```
 @NgModule({
-declarations: [
-MyApp,
-HomePage,
-RotateCustomeDirective
-],
-imports: [
-IonicModule.forRoot(MyApp)
-],
-bootstrap: [IonicApp],
-entryComponents: [
-MyApp,
-HomePage
-],
-providers: [{
-provide: ErrorHandler,
-useClass: IonicErrorHandler,
-}, {
-provide: HAMMER_GESTURE_CONFIG,
-useClass: CustomHammerConfig
-}]
+    declarations: [
+        MyApp,
+        HomePage,
+        RotateCustomeDirective
+    ],
+    imports: [
+        IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        HomePage
+    ],
+    providers: [{
+        provide: ErrorHandler,
+        useClass: IonicErrorHandler,
+    }, {
+        provide: HAMMER_GESTURE_CONFIG,
+        useClass: CustomHammerConfig
+    }]
 })
 export class AppModule { }
 ```
@@ -115,26 +114,24 @@ Our custom directive **RotateCustomeDirective** code present in
 _**src/directives/rotate-custom-directive.ts**_ will look something as shown
 
 ```
-import { Directive, Output, EventEmitter, HostListener } from
-'@angular/core';
+import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
 @Directive({
-selector: '[rotateCustom]'
+    selector: '[rotateCustom]'
 })
 export class RotateCustomeDirective {
-@Output() angleChange = new EventEmitter<any>();
-//although rotatestart is not required here, but we are keeping it here
-for reference purpose
-/*
-@HostListener('rotatestart', ['$event']) protected onRotateStart(event)
-{
-event.preventDefault();
-//put your code
-}
-*/
-@HostListener('rotatemove', ['$event']) protected onRotateMove(event) {
-event.preventDefault();
-this.angleChange.emit({ angle: event.angle });
-}
+    @Output() angleChange = new EventEmitter<any>();
+    //although rotatestart is not required here, but we are keeping it here for reference purpose
+    /*
+    @HostListener('rotatestart', ['$event']) protected onRotateStart(event)
+    {
+    event.preventDefault();
+    //put your code
+    }
+    */
+    @HostListener('rotatemove', ['$event']) protected onRotateMove(event) {
+        event.preventDefault();
+        this.angleChange.emit({ angle: event.angle });
+    }
 }
 ```
 
@@ -146,18 +143,16 @@ for _**home.html**_, _**home.scss**_ and _**home.ts**_ as shown
 
 ```
 <ion-header>
-<ion-navbar>
-<ion-title>
-Hammer JS Example
-</ion-title>
-</ion-navbar>
+  <ion-navbar>
+    <ion-title>
+    Hammer JS Example
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content padding>
-<div anglechange class="box" event onrotation rotatecustom style.transform
-transformstyle>
-<div class="label">
-{{title}}</div>
-</div>
+  <div anglechange class="box" event onrotation rotatecustom style.transform transformstyle>
+    <div class="label">{{title}}</div>
+  </div>
 </ion-content>
 ```
 
@@ -167,50 +162,51 @@ update style.transform css property using variable transformStyle.
 **home.scss**
 
 ```
-
 page-home {
 }
+
 .box {
-margin: 50px 0 0 50px;
-width:200px;
-height:200px;
-background-color: #9933ff;
+  margin: 50px 0 0 50px;
+  width:200px;
+  height:200px;
+  background-color: #9933ff;
 }
+
 .box .label{
-text-align: center;
-color: #fff;
-font-weight: bold;
-font-size: 16px;
-padding: 45% 0 0 0;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 45% 0 0 0;
 }
+
 .box:hover {
-cursor:pointer;
+  cursor:pointer;
 }
 ```
 
 **home.ts**
 
 ```
-
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 @Component({
-selector: 'page-home',
-templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
-angle: Number;
-transformStyle: String;
-title = 'Rotate Me!';
-constructor(public navCtrl: NavController) {
-// set default angle to 0deg
-this.angle=0;
-this.transformStyle="rotate(0deg)";
-}
-onRotation(event: any): void {
-this.angle=event.angle;
-this.transformStyle="rotate("+this.angle+"deg)";
-}
+    angle: Number;
+    transformStyle: String;
+    title = 'Rotate Me!';
+    constructor(public navCtrl: NavController) {
+        // set default angle to 0deg
+        this.angle = 0;
+        this.transformStyle = "rotate(0deg)";
+    }
+    onRotation(event: any): void {
+        this.angle = event.angle;
+        this.transformStyle = "rotate(" + this.angle + "deg)";
+    }
 }
 ```
 
