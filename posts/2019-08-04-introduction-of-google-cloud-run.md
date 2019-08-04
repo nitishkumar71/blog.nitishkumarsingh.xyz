@@ -174,5 +174,5 @@ In other managed frameworks, we are dependent on cloud providers to support and 
 
 **Refrences**
 
-* [**Google Cloud Run on VM and GKE**](https://twitter.com/ahmetb/status/1116041166359654400/photo/1)\*\*\*\*
-* [**Google Cloud Run Docs**](https://cloud.google.com/run/docs/)\*\*\*\*
+* [**Google Cloud Run on VM and GKE**](https://twitter.com/ahmetb/status/1116041166359654400/photo/1)
+* [**Google Cloud Run Docs**](https://cloud.google.com/run/docs/)
