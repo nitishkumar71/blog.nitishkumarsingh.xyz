@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Navigation from './navigation'
+import { DiscussionEmbed } from "disqus-react"
 
 import style from '../styles/post.module.css'
 
@@ -16,6 +17,11 @@ const Post = ({
   previousPost,
   nextPost,
 }) => {
+  const disqusConfig = {
+    shortname: process.env.GATSBY_DISQUS_NAME,
+    // shortname: 'blog-nitishkumar-singh',
+    config: { identifier: slug, title },
+  }
   const previousPath = previousPost && previousPost.fields.slug
   const previousLabel = previousPost && previousPost.frontmatter.title
   const nextPath = nextPost && nextPost.fields.slug
@@ -45,6 +51,7 @@ const Post = ({
               nextPath={nextPath}
               nextLabel={nextLabel}
             />
+            <DiscussionEmbed {...disqusConfig} />
           </>
         )}
       </div>

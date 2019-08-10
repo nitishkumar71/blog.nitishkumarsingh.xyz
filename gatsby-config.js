@@ -106,7 +106,7 @@ module.exports = {
             resolve: `gatsby-plugin-google-analytics`,
             options: {
               // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-              trackingId: "UA-118381612-1",
+              trackingId: process.env.GA_TRACKING_ID
             },
           }
         ],
@@ -124,5 +124,31 @@ module.exports = {
         icon: `src/images/myAvatar.svg`,
       },
     },
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      }
+    },
+    `gatsby-plugin-nprogress`,
+    `gatsby-plugin-polyfill-io`,
+    // {
+    //   resolve: "gatsby-plugin-guess-js",
+    //   options: {
+    //     // Find the view id in the GA admin in a section labeled "views"
+    //     GAViewID: process.env.GA_TRACKING_ID,
+    //     minimumThreshold: 0.03,
+    //     // Set Google Analytics jwt with Google Service Account email and private key
+    //     jwt: {
+    //       client_email: `GOOGLE_SERVICE_ACCOUNT_EMAIL`,
+    //       private_key: `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY`,
+    //     },
+    //     // The "period" for fetching analytic data.
+    //     period: {
+    //       startDate: new Date("2018-1-1"),
+    //       endDate: new Date(),
+    //     }
+    //   }
+    // }
   ],
 }
