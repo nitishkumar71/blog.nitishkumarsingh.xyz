@@ -18,7 +18,7 @@ There has been always pretty much hype around serverless from the day one. Altho
 
 The idea behind serverless is to provide an framework, where developers can build and deploy small applications quickly without being concerned about deployment overhead. If you need a lot of resources like high memory and lots of disk space, serverless is probably not a great approach. But If you can’t predict the volume, and you’re doing lots of small transactional workloads, then serverless is really good.
 
-OK, so that was the same repeated information you will find in every other blogs. But do you know there has been great adoption of serverless framework by different cloud provideres. Even there are different open source frameworks, which allows us to host and deploy our serverless environment. Although, managing serverless environment is not that easy. There is a small learning curve around it.
+OK, so that was the same repeated information you will find in every other blogs. But do you know there has been great adoption of serverless framework by different cloud providers. Even there are different open source frameworks, which allows us to host and deploy our serverless environment. Although, managing serverless environment is not that easy. There is a small learning curve around it.
 
 **Some of the opensource framework for serverelss environments are:**
 
@@ -45,19 +45,17 @@ Cloud Run follows the same principal of serverless, but allows developer to run 
 
 In other managed frameworks, we are dependent on cloud providers to support and language or framework, but in cloud run we can use any language or framework of our choice.
 
-**Let's see an example of how we can deploy an django app on google cloud run**
+**Let's see an example of how we can deploy an Django app on google cloud run**
 
 1. **Create Django APP**
+   We will not go in detail, about how an app can be created in Django. Please follow the official [documentation](https://docs.djangoproject.com/en/2.2/intro/tutorial01/) for the same. We have created a simple GET API. The final application structure would be something like below.
 
-   We will not go in detail, about how an app can be created in django. Please follow the official [documentation](https://docs.djangoproject.com/en/2.2/intro/tutorial01/) for the same. We have created an simple GET api. The final application structure would be something like below.
+![Cloud Run Django app](/assets/cloud_run_django_app.png "Cloud Run Django app")
 
-   ![Cloud Run Django app](/assets/cloud_run_django_app.png "Cloud Run Django app")
-
-   There will be no **_Dockerfile_** and **_httpd-foreground_** by default, when django application get created.
-
+1. There will be no _**Dockerfile**_ and _**httpd-foreground**_ by default, when Django application gets created.
 2. **Write Docker File**
-
    We won't be covering details about how this dockerfile works in this blog post.
+
 
 ```
         FROM alpine:3.9
@@ -114,8 +112,8 @@ In other managed frameworks, we are dependent on cloud providers to support and 
         # ENTRYPOINT ["httpd", "-D", "FOREGROUND", "-e", "info", "&"]
         CMD ["httpd-foreground"]
 ```
- 
-   Here we are exposing application on port 8080(default for Cloud  Run) and excecuting httpd-foreground file.
+
+   Here we are exposing application on port 8080(default for Cloud  Run) and executing httpd-foreground file.
 
 3. **Write httpd-foreground file**
 
@@ -130,49 +128,38 @@ In other managed frameworks, we are dependent on cloud providers to support and 
         exec httpd -DFOREGROUND
 ```
 
-   httpd-foreground is an simple shell script, which we will be using to run apache on foreground.
+   httpd-foreground is an simple shell script, which we will be using to run Apache on foreground.
 
 4. **Build Docker Image and push to GCR**
-
    Build docker image locally
-
    `sudo docker build .`
-
    [Tag image to upload to GCR](https://cloud.google.com/container-registry/docs/pushing-and-pulling#tag_the_local_image_with_the_registry_name)
-
    `sudo docker tag <IMAGE_ID> asia.gcr.io/<project_name>/my_django_app`
-
    [Push Image to GCR](https://cloud.google.com/container-registry/docs/pushing-and-pulling#push_the_tagged_image_to)``
-
    `sudo docker push asia.gcr.io/<project_name>/my_django_app`
-
 5. **Create Cloud Run Service**
-
    Open Cloud Run Portal, and click on **create service**
 
-   ![Create Service](/assets/create-service.png "Create create serviceService")
+![Create Service](/assets/create-service.png "Create create serviceService")
 
-   After click, you will be shown below page
+4. After click, you will be shown below page
 
-   ![Cloud Run with options](/assets/cloud-run-service-with-options.png "Cloud Run with options")
+![Cloud Run with options](/assets/cloud-run-service-with-options.png "Cloud Run with options")
 
-   As, you would have noticed, you can set environment variables as well as configure multiple [Cloud SQL services](https://cloud.google.com/sql/docs/), which are needed to be accessed by Cloud RUN. You should only select [_**Allow unauthenticated invocations**_](https://cloud.google.com/run/docs/authenticating/public), if and only if you want to allow end-points to be publicly accessible.
-
+4. As, you would have noticed, you can set environment variables as well as configure multiple [Cloud SQL services](https://cloud.google.com/sql/docs/), which are needed to be accessed by Cloud RUN. You should only select [**_Allow unauthenticated invocations_**](https://cloud.google.com/run/docs/authenticating/public), if and only if you want to allow end-points to be publicly accessible.
    After selecting all the required options, your form will look something like this.
 
-   ![Cloud Run With completed options](/assets/screenshot_my_django_app_cloud_run.png "Cloud Run With completed options")
+![Cloud Run With completed options](/assets/screenshot_my_django_app_cloud_run.png "Cloud Run With completed options")
 
-   Click on create button to deploy the docker image. after successful deployment, you will be redirected to below page
+4. Click on create button to deploy the docker image. after successful deployment, you will be redirected to below page
 
-   ![Cloud Run Deployed](/assets/cloud_run_my_django_app_deployed.png "Cloud Run Deployed")
+![Cloud Run Deployed](/assets/cloud_run_my_django_app_deployed.png "Cloud Run Deployed")
 
-   You can use **URL** to access the application, being deployed on cloud run. As visible from page, you can have multiple versions of app deployed. We can also redirect a part of traffic to test the canary releases.
-
+4. You can use **URL** to access the application, being deployed on cloud run. As visible from page, you can have multiple versions of app deployed. We can also redirect a part of traffic to test the canary releases.
    That's it about how we can deploy an application on cloud run. To explore further follow the documentation of Google Cloud Run.
-
    Django App [GitLab Repository](https://github.com/nitishkumar71/blog/tree/master/google-cloud-run) for Cloud Run
 
-**Refrences**
+**References**
 
 * [**Google Cloud Run on VM and GKE**](https://twitter.com/ahmetb/status/1116041166359654400/photo/1)
 * [**Google Cloud Run Docs**](https://cloud.google.com/run/docs/)
