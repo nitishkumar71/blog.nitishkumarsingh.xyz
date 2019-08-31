@@ -58,8 +58,11 @@ class Header extends React.Component {
         <Helmet>
           <title>{siteTitle}</title>
           <body
+            // className={
+            //   (userTheme || theme) === 'light' ? 'light-theme' : 'dark-theme'
+            // }
             className={
-              (userTheme || theme) === 'light' ? 'light-theme' : 'dark-theme'
+              'light-theme'
             }
           />
         </Helmet>
