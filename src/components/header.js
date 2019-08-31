@@ -9,9 +9,10 @@ import style from '../styles/header.module.css'
 
 class Header extends React.Component {
   state = {
-    userTheme:
-      (typeof window !== 'undefined' && window.localStorage.getItem('theme')) ||
-      null,
+    // userTheme:
+    //   (typeof window !== 'undefined' && window.localStorage.getItem('theme')) ||
+    //   null,
+    userTheme: 'light',
     isMobileMenuVisible: false,
     isSubMenuVisible: false,
   }
