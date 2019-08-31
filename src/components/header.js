@@ -23,7 +23,8 @@ class Header extends React.Component {
   onToggleSubMenu = this.onToggleSubMenu.bind(this)
 
   onChangeTheme() {
-    const { userTheme } = this.state
+    // const { userTheme } = this.state
+    const { userTheme } = 'light'
     const opositeTheme =
       userTheme === 'dark' || userTheme === null ? 'light' : 'dark'
     this.setState({ userTheme: opositeTheme })
