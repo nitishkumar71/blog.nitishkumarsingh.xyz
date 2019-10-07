@@ -43,7 +43,7 @@ BlogPostTemplate.propTypes = {
 
 export const pageQuery = graphql`
   query($pathSlug: String) {
-    markdownRemark(fields: { slug: { eq: $pathSlug } }) {
+    markdownRemark(fields: { slug: { eq: $pathSlug }, draft: { eq: false } }) {
       fields{
         slug
       }
