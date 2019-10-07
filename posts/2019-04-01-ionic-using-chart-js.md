@@ -1,6 +1,7 @@
 ---
 date: 2017-08-14T18:30:00.000Z
 title: Ionic - Using Chart.js
+draft: false
 tags:
   - angular
   - chartjs

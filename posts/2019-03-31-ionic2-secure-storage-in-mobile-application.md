@@ -1,6 +1,7 @@
 ---
 date: 2017-02-25T18:30:00.000Z
 title: Ionic2 - Secure Storage in mobile application
+draft: false
 tags:
   - cordova
   - ionic

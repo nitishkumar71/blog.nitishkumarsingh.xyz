@@ -1,6 +1,7 @@
 ---
 date: 2019-08-24T06:48:37.094Z
 title: Django app testing with unmanaged database
+draft: false
 tags:
   - django
   - models

@@ -1,6 +1,7 @@
 ---
 date: 2017-02-10T18:30:00.000Z
 title: Ionic2 - Internationalization using ng2-translate
+draft: false
 tags:
   - angular
   - ng2-translate

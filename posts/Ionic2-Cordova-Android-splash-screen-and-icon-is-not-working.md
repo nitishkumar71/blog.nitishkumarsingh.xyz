@@ -1,6 +1,7 @@
 ---
 date: 2017-01-27T14:40:28.697Z
 title: Ionic2/Cordova - Android splash screen and icon is not working
+draft: false
 tags:
   - angular
   - Cordova

@@ -1,6 +1,7 @@
 ---
 date: 2017-02-03T18:30:00.000Z
 title: Ionic2 - How to use D3 JS
+draft: false
 tags:
   - angular
   - cordova

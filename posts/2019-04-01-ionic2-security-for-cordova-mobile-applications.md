@@ -1,6 +1,7 @@
 ---
 date: 2017-02-18T18:30:00.000Z
 title: Ionic2 - Security for Cordova mobile applications
+draft: false
 tags:
   - angular
   - cordova

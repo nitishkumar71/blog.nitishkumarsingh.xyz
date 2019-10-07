@@ -132,6 +132,7 @@ module.exports = {
     },
     `gatsby-plugin-nprogress`,
     `gatsby-plugin-polyfill-io`,
+    'gatsby-plugin-draft',
     // {
     //   resolve: "gatsby-plugin-guess-js",
     //   options: {

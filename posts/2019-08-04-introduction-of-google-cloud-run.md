@@ -1,6 +1,7 @@
 ---
 date: 2019-08-04T13:32:11.884Z
 title: Introduction of Google Cloud Run
+draft: false
 tags:
   - serverless
   - cloudrun

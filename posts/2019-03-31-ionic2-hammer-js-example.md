@@ -1,6 +1,7 @@
 ---
 date: 2017-03-13T14:40:28.697Z
 title: Ionic2 - Hammer JS Example
+draft: false
 tags:
   - angular
   - Cordova
