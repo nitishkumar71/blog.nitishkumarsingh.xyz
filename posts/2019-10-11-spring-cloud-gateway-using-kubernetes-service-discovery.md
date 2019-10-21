@@ -17,5 +17,20 @@ draft: true
 ---
 Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
 
-1. **What is Service Discovery?**
-2. **What is API Gateway and why we need it?**
+* **What is Service Discovery**
+
+> Please follow this [POST](https://blog.nitishkumarsingh.xyz/2019-10-07-service-discvery-in-microservices/) to understand more about service discovery.
+
+* **What is API Gateway and why we need it?**
+
+> Please follow this [POST](<>) to understand more about API Gateway.
+
+
+
+We won't go in detail about what is Kubernetes and it's components in this post. Let's see how we can use API gateway from scratch.
+
+1. **Create Spring Gateway application**
+
+Go to [Spring Initalizr](https://start.spring.io/), select the gateway as dependencies.
+
+![Spring Gateway Configuration](/assets/screenshot-from-2019-10-21-20-45-06.png)
