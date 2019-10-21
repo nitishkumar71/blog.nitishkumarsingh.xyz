@@ -33,4 +33,4 @@ Go to [Spring Initalizr](https://start.spring.io/), select the gateway as depend
 
 ![Spring Gateway Configuration](/assets/screenshot-from-2019-10-21-20-45-06.png)
 
-> <small> update `springCloudVersion` from `Hoxton.M3` to `Hoxton.M2`, as there is an [issue](https://github.com/spring-cloud/spring-cloud-kubernetes/issues/479) in spring cloud kubernetes release due to which routing will not work correctly.</small>
+> <small> update `springCloudVersion` from `Hoxton.M3` to `Hoxton.M2`, as there is an [issue](https://github.com/spring-cloud/spring-cloud-kubernetes/issues/479) in spring cloud kubernetes release due to which routing will not work correctly. You can look into the [build.gradle](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/build.gradle) file available in github too. </small>
