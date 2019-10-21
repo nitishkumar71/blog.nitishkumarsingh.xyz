@@ -1,5 +1,5 @@
 ---
-date: 2019-10-11T04:31:30.041Z
+date: 2019-10-21T04:31:30.041Z
 title: Spring Cloud Gateway using Kubernetes Service Discovery
 tags:
   - spring
