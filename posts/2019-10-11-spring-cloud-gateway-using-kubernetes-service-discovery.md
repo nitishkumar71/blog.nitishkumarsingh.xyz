@@ -13,7 +13,7 @@ excerpt: >-
   you want to know, how to onboard new apis dynamically as and when they are
   deployed in your kubernetes architecture? Look into the article to answer, all
   of these questions.
-draft: false
+draft: true
 ---
 Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
 
@@ -32,3 +32,21 @@ We won't go in detail about what is Kubernetes and it's components in this post.
 Go to [Spring Initalizr](https://start.spring.io/), select the gateway as dependencies.
 
 ![Spring Gateway Configuration](/assets/screenshot-from-2019-10-21-20-45-06.png)
+
+> update 
+>
+> `springCloudVersion`
+>
+>  from 
+>
+> `Hoxton.M3`
+>
+>  to 
+>
+> `Hoxton.M2`
+>
+> , as there is an 
+>
+> [issue](https://github.com/spring-cloud/spring-cloud-kubernetes/issues/479)
+>
+>  in spring cloud kubernetes release due to which routing will not work correctly.
