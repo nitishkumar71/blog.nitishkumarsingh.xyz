@@ -15,4 +15,7 @@ excerpt: >-
   of these questions.
 draft: true
 ---
-From the day Kubernetes
+Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
+
+1. **What is Service Discovery?**
+2. **What is API Gateway and why we need it?**
