@@ -33,20 +33,4 @@ Go to [Spring Initalizr](https://start.spring.io/), select the gateway as depend
 
 ![Spring Gateway Configuration](/assets/screenshot-from-2019-10-21-20-45-06.png)
 
-> update 
->
-> `springCloudVersion`
->
->  from 
->
-> `Hoxton.M3`
->
->  to 
->
-> `Hoxton.M2`
->
-> , as there is an 
->
-> [issue](https://github.com/spring-cloud/spring-cloud-kubernetes/issues/479)
->
->  in spring cloud kubernetes release due to which routing will not work correctly.
+> <small> update `springCloudVersion` from `Hoxton.M3` to `Hoxton.M2`, as there is an [issue](https://github.com/spring-cloud/spring-cloud-kubernetes/issues/479) in spring cloud kubernetes release due to which routing will not work correctly.</small>
