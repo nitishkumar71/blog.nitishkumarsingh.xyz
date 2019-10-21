@@ -18,15 +18,34 @@ draft: true
 ---
 Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
 
-* **What is Service Discovery**
+* **What is Service Discovery?  What is API Gateway and why we need it?**
 
-> Please follow this [POST](https://blog.nitishkumarsingh.xyz/2019-10-07-service-discvery-in-microservices/) to understand more about service discovery.
+> Please follow this [POST](https://blog.nitishkumarsingh.xyz/2019-10-07-service-discvery-in-microservices/) to understand more about service discovery and API gateway.
 
-* **What is API Gateway and why we need it?**
+**Advantages of API Gateway**
 
-> Please follow this [POST](<>) to understand more about API Gateway.
+* There is single entry point for you application to external world. So, client doesn't need to know your application is split in micro-services.
+* Authentication and Authorization can be simply applied to API Gateway.
+* Security patches can be simply applied to API gateway. It does not mean that we should not secure our other services.
+* Different application can focus on their business code, without worrying about how client will access their applications.
 
-We won't go in detail about what is Kubernetes and it's components in this post. Let's see how we can use API gateway from scratch.
+**Disadvantages of API Gateway**
+
+* Increased complexity, as we now have additional layer in micro-service architecture.
+* increased delay in response time, as each request need to pass through gateway.
+
+**Spring Cloud Gateway**
+
+[Spring Cloud Gateway](https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.2.0.M3/reference/html/) is an implementation of API Gateway, which can be used to expose services written in any language as single endpoint. It's written on top of the famous [Spring framework](https://spring.io/). Some of the features of gateway are
+
+* Dynamic Service Discovery using Consul, netflix eureka and kubernetes etcd.
+* ability to match route request using any attribute such as method type, headers and etc.
+* ability to write custom path and filters(logging, authorization and etc.)
+* Load balancing and circuit breaker pattern support
+* compatible with all Spring projects, which opens a lot of possibility
+* support of spring reactive 
+
+Let's see how we can leverage spring cloud gateway in kubernetes for routing the request. We won't go in detail about what is Kubernetes and it's components in this post. Let's see how we can use API gateway from scratch.
 
 1. **Create Spring Gateway application**
 
@@ -91,8 +110,8 @@ spring:
           enabled: true
           lowerCaseServiceId: true
           # url-expression: "'http://'+serviceId"
-    # enable if, you want to load config from ConfigMap or Secrets
-    # kubernetes: 
+    # enable if configuration need to be loaded from ConfigMap or Secrets
+    # kubernetes:
     #   reload:
     #     enabled: true
     #     mode: polling
@@ -115,7 +134,9 @@ management:
       enabled: true
 ```
 
-In above file `spring.cloud.gateway.discovery.locator.enabled` is used to enable dynamic service discovery with the help of [etcd](https://github.com/etcd-io/etcd) which is used by kubernetes to store current state of kubernetes cluster. It also store the information about service and deployments. remaining configuration such as **_logging_** and **_management_** are used for logging the information and actuator endpoints respectively.
+In above file `spring.cloud.gateway.discovery.locator.enabled` is used to enable dynamic service discovery with the help of [etcd](https://github.com/etcd-io/etcd) which is used by kubernetes to store current state of kubernetes cluster. `include-expression` only includes kubernetes services which contains metadata key `expose` with value `true`. We can customize it for any other key value pair.
+
+It also store the information about service and deployments. remaining configuration such as **_logging_** and **_management_** are used for logging the information and actuator endpoints respectively.
 
 There are few additional files we need to create for deployment in Kubernetes.
 
@@ -153,7 +174,7 @@ metadata:
 
 Create service account using command `kubectl apply -f service-account.yaml`
 
-Now, let's create an role applicable within _**default**_ namespace which provides permission to read services, pods and endpoints. We can use below [_**namespace-role.yaml**_](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/namespace-role.yaml)**__**
+Now, let's create an role applicable within _**default**_ namespace which provides permission to read services, pods and endpoints. We can use below [_**namespace-role.yaml**_](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/namespace-role.yaml)
 
 ```
 apiVersion: rbac.authorization.k8s.io/v1
@@ -281,35 +302,33 @@ kubectl apply -f service.yaml
 
 We won't discuss about the content of deployment and service as they are pretty same as above. The only notable difference is that their is no service type assigned. Default type for kubernetes service type is `ClusterIP`, which is used by kubernetes to internally load balance request issued to any service from within cluster. 
 
-Let's execute command kubectl get svc to get list of all services.
+Let's execute command `kubectl get svc` to get list of all services.
 
-![Service list on Kubernetes cluster]( "Service list on Kubernetes cluster")
+![Services list on Kubernetes cluster](/assets/spring-gateway-kube-services.png "Services list on Kubernetes cluster")
 
-Given appropriate permission any service within kubernetes can access another service using ClusterIP.
+As we can notice, there is service type `NodePort` with port no  31112 for gateway application. So, we can access the gateway application on the given port using node IP. NodePort IP will be dynamically allocated, so it could be different for you. Since I am executing it on minikube, so for now node IP can be retrieved using command `minikube ip`. Service type for other application is `ClusterIP`.  Given appropriate permission any service within kubernetes can access another service using `ClusterIP`.
 
+Let's see if all of our gateway application is up and running with tracking and booking application using `kubectl get pods`.
 
-
-Let's see if all of our gateway application is up and running with tracking and booking application using kubectl get pods.
-
-![Deployment in Kubernetes]( "Deployment in Kubernetes")
+![Deployment in Kubernetes](/assets/spring-cloud-gateway-kube-pods.png "Deployment in Kubernetes")
 
 Since everything is up and running. Let's call _**actuator/gateway/routes**,_ which gives the list of all services registered in kubernetes.
 
-![Spring Cloud Gateway Routes]( "Spring Cloud Gateway Routes")
+![Spring Cloud Gateway Routes](/assets/spring-cloud-gateway-routes.png "Spring Cloud Gateway Routes")
 
 So we are all setup, now to verify if routing is actually working. Let's send an request to booking application using route _**/booking-service/hello**_ and below is the result.
 
-![Booking application response]( "Booking application response")
+![Booking application response](/assets/spring-gateway-kube-booking.png "Booking application response")
 
 Let's send another request to _**/booking-service/hello**_ and below is the result.
 
-![Tracking application resposne]( "Tracking application resposne")
+![Tracking application resposne](/assets/spring-gateway-kube-tracking.png "Tracking application resposne")
 
 Congratulations, we are ready with our API Gateway for kubernetes.
 
 The entire source code is available in the [repository](https://github.com/nitishkumar71/blog/tree/master/spring-cloud-gateway-in-kubernetes). In case you are running your application in minikube like me just follow below steps
 
-* start minikube `minkube start`
+* start minikube using command `minkube start`
 * download repository and move to the folder _**spring-cloud-gateway-in-kubernetes**_ 
 * execute [deploy-script.sh](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/deploy-script.sh), which will build docker images in minikube docker environment. 
 * Execute [clean-up.sh](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/clean-up.sh) to destroy all configurations, once you want to delete everything.
