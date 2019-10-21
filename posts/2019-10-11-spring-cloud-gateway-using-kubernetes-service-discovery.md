@@ -13,7 +13,7 @@ excerpt: >-
   you want to know, how to onboard new apis dynamically as and when they are
   deployed in your kubernetes architecture? Look into the article to answer, all
   of these questions.
-draft: true
+draft: false
 ---
 Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
 
@@ -24,8 +24,6 @@ Before going through the actual content of the blog, you should be aware of few 
 * **What is API Gateway and why we need it?**
 
 > Please follow this [POST](<>) to understand more about API Gateway.
-
-
 
 We won't go in detail about what is Kubernetes and it's components in this post. Let's see how we can use API gateway from scratch.
 
