@@ -1,7 +1,6 @@
 ---
 date: 2019-10-07T10:26:32.932Z
 title: Service Discovery in microservices
-draft: false
 tags:
   - microservices
   - servicediscovery
@@ -9,13 +8,14 @@ tags:
 excerpt: >-
   What is service discovery in microservices? What problems can it solve for us?
   Do we really need it?
+draft: false
 ---
 So until and unless anyone of us was living in a cave, we all would have heard about the buzzword microservices. It's not that you always need to build microservices for every small functionality, a lot of problems can be easily solved by the monolith.
 
 Whether you need microservice or not can be answered based on a few questions
 
 * Do you have independent business domains that are independent and functions as a separate entity within applications?
-*  Do you have a large team of developers, who are split into small teams based on a business domain?
+* Do you have a large team of developers, who are split into small teams based on a business domain?
 * Do you want to roll out new functionality for different modules quickly and independent of other modules?
 
 These are not the complete list of questions, but these can be served as the base to decide whether you should go for microservices or not. 
@@ -50,21 +50,21 @@ Let's understand what is happening here. All the services are hosted in differen
 <sub>**NOTE: There are different deployment orchestration technologies are available. Those are out of context for this article.**</sub>
 
 **Service Registry** is a key-value pair database. The database consists of **unique id for each service, service name, machine IP address, port number and Health Monitoring API** of each service. Service Registry will invoke health monitoring API on the fixed interval to check if the service is healthy or not.
- 
+
 Now let's see how the above problems are being solved
- 
+
 **Cross Service Communication** Consider the first scenario where Service1 wants to access Service3. To do so, Service1 will query the service registry database for service3 and fetch the list of instances where Service3 is available. Using the IP address and port number, Service1 can now access Service3. This is also called **Client-Side Service Discovery** pattern.
- 
+
 **How External world can access microservices functionality?** Consider the second scenario, where Gateway wants to redirect the external request to Service1. Gateway queries the Service Registry and fetches the list of instances where Service1 is available. Using the IP address and port number Gateway redirects the request to any of the machines where Service1 is available. The approach where external clients are accessing microservices using service discovery is called **Service-Side Service Discovery** pattern.
- 
+
 **Benefits of Approach 2** 
- 
+
 * No need to hard code IP address or port number of services, as it can find out dynamically at the time of request only.
 * Deployment is independent of microservice communication architecture.
 * Based on their health status request can be sent to only healthy services
-* No need for any kind of loadbalancer, as service address can find out dynamically.
+* No need for any kind of internal loadbalancer with static ip for services, as service address can find out dynamically. But the loadbalancing strategies need to be implemented  at gateway, so we are not evenly distributing load between instances/pods of single service.
 * Strategies to distribute the load evenly between available machines can be implemented and client-side and gateway.
- 
+
 **BONUS**
- 
+
 As we have seen, Gateway has played a crucial role in both the approaches, Gateway is routing the requests from external clients to respective microservices. It's serving as the backend for any external client. This approach is called **API Gateway** pattern.
