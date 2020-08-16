@@ -13,6 +13,8 @@ collections:
     folder: posts
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     create: true
+    editor:
+      preview: true
     fields:
       # - { name: path, label: Path }
       - { name: date, label: Date, widget: date }
