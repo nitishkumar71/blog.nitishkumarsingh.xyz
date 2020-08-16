@@ -29,7 +29,12 @@ module.exports = {
     ],
   },
   plugins: [
-    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-plugin-netlify-cms`,
+      options: {
+        htmlFavicon: "src/images/myAvatar.svg"
+      },
+    },
     `babel-preset-gatsby`,
     `gatsby-plugin-react-helmet`,
     {
