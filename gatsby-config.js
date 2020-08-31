@@ -32,7 +32,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify-cms`,
       options: {
-        htmlFavicon: "src/images/myAvatar.svg"
+        htmlFavicon: "src/images/myAvatar.svg",
+        enableIdentityWidget: false
       },
     },
     `babel-preset-gatsby`,
