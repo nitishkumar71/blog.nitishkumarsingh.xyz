@@ -8,12 +8,11 @@ tags:
   - kubernetes
   - springcloudgateway
   - minikube
-excerpt: >-
-  Do you want to expose your microservices API deployed in Kubernetes to the
-  external world?  Do you want to expose all frontend API on the same domain? Do
-  you want to know, how to onboard new apis dynamically as and when they are
-  deployed in your kubernetes architecture? Look into the article to answer, all
-  of these questions.
+excerpt: Do you want to expose your microservices API deployed in Kubernetes to
+  the external world?  Do you want to expose all frontend API on the same
+  domain? Do you want to know, how to onboard new apis dynamically as and when
+  they are deployed in your kubernetes architecture? Look into the article to
+  answer, all of these questions.
 draft: false
 ---
 Before going through the actual content of the blog, you should be aware of few of the concepts, such as 
@@ -63,12 +62,12 @@ Include [spring-cloud-starter-kubernetes](https://spring.io/projects/spring-clou
 * spring-cloud-starter-kubernetes-ribbon is client side load-balancing based on Netflix Ribbon for kubernetes services.
 * spring-boot-starter-actuator provides additional features to monitor and manage your applications.
 
-After adding all the dependecies, your [**build.gradle**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/build.gradle) should look something like
+After adding all the dependecies, your **[build.gradle](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/build.gradle)** should look something like
 
 ```
 plugins {
-	id 'org.springframework.boot' version '2.2.0.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
 
@@ -82,14 +81,14 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.RC1")
+    set('springCloudVersion', 'Hoxton.SR8')
 }
 
 dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes'
-	implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-ribbon'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
 	testImplementation ('org.springframework.boot:spring-boot-starter-test')
 }
 
@@ -100,7 +99,7 @@ dependencyManagement {
 }
 ```
 
-That's it, we don't need to add any additional code for gateway to work. Now let's create the configuration file [**_application.yml_**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/src/main/resources/application.yml) in **src/main/resources** as shown below
+That's it, we don't need to add any additional code for gateway to work. Now let's create the configuration file ***[application.yml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/src/main/resources/application.yml)*** in **src/main/resources** as shown below
 
 ```
 spring:
@@ -138,11 +137,11 @@ management:
 
 In above file `spring.cloud.gateway.discovery.locator.enabled` is used to enable dynamic service discovery with the help of [etcd](https://github.com/etcd-io/etcd) which is used by kubernetes to store current state of kubernetes cluster. `include-expression` only includes kubernetes services which contains metadata key `expose` with value `true`. We can customize it for any other key value pair.
 
-It also store the information about service and deployments. remaining configuration such as _**logging**_ and _**management**_ are used for logging the information and actuator endpoints respectively.
+It also store the information about service and deployments. remaining configuration such as ***logging*** and ***management*** are used for logging the information and actuator endpoints respectively.
 
 There are few additional files we need to create for deployment in Kubernetes.
 
-First we need to create an [**Dockerfile**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/Dockerfile) in source directory of gateway application
+First we need to create an **[Dockerfile](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/Dockerfile)** in source directory of gateway application
 
 ```
 FROM openjdk:8-jdk-alpine as build
@@ -162,9 +161,9 @@ Now, let's create an docker image using below command from the gateway source di
 
 `docker build --tag=gateway:latest .`
 
-push the docker image to the an docker repository. In-case you want to deploy this on _**minikube**_, then no need to push the docker image, just execute the `eval $(minikube docker-env)` in terminal before building docker image.
+push the docker image to the an docker repository. In-case you want to deploy this on ***minikube***, then no need to push the docker image, just execute the `eval $(minikube docker-env)` in terminal before building docker image.
 
-We need an service account to allow gateway application to read details of service and pods. We can create [**service-account.yaml**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/service-account.yaml)\*\*\*\*
+We need an service account to allow gateway application to read details of service and pods. We can create **[service-account.yaml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/service-account.yaml)**\*\*\*\*
 
 ```
 apiVersion: v1
@@ -176,7 +175,7 @@ metadata:
 
 Create service account using command `kubectl apply -f service-account.yaml`
 
-Now, let's create an role applicable within **_default_** namespace which provides permission to read services, pods and endpoints. We can use below [**_namespace-role.yaml_**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/namespace-role.yaml)
+Now, let's create an role applicable within ***default*** namespace which provides permission to read services, pods and endpoints. We can use below ***[namespace-role.yaml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/namespace-role.yaml)***
 
 ```
 apiVersion: rbac.authorization.k8s.io/v1
@@ -197,9 +196,9 @@ rules:
   - list
 ```
 
-Create namespace role using command `kubectl apply -f namespace-role.yaml`. The above permissions are only limited to _**default**_ namespace.
+Create namespace role using command `kubectl apply -f namespace-role.yaml`. The above permissions are only limited to ***default*** namespace.
 
-Once we have create role and service account, then we need bind role with service account. We can create an [**role-binding.yaml**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/role-binding.yaml) for the same
+Once we have create role and service account, then we need bind role with service account. We can create an **[role-binding.yaml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/role-binding.yaml)** for the same
 
 ```
 apiVersion: rbac.authorization.k8s.io/v1
@@ -219,7 +218,7 @@ roleRef:
 
 Create Role Binding using command `kubectl apply -f gateway/role-binding.yaml`. Now, we have assigned all the required permission to get list of services and pods.
 
-Let's create an [**deployment.yaml**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/deployment.yaml), which we will be used to create an managed pods for gateway application.
+Let's create an **[deployment.yaml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/deployment.yaml)**, which we will be used to create an managed pods for gateway application.
 
 ```
 apiVersion: apps/v1
@@ -258,7 +257,7 @@ The `containerPort` mentions the port number on which gateway run by default. `l
 
 Create Deployment in kubernetes using `kubectl apply -f deployment.yaml`.
 
-To access the gateway from outside of the kubernetes, we will need an service. Although, preferable would be to use `LoadBalancer` service type for production, but for demo purpose we will use `NodePort`. We can use [**service.yaml**](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/service.yaml) to create service
+To access the gateway from outside of the kubernetes, we will need an service. Although, preferable would be to use `LoadBalancer` service type for production, but for demo purpose we will use `NodePort`. We can use **[service.yaml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/service.yaml)** to create service
 
 ```
 apiVersion: v1
@@ -311,15 +310,15 @@ Let's see if all of our gateway application is up and running with tracking and 
 
 ![Deployment in Kubernetes](/assets/spring-cloud-gateway-kube-pods.png "Deployment in Kubernetes")
 
-Since everything is up and running. Let's call _**actuator/gateway/routes**,_ which gives the list of all services registered in kubernetes.
+Since everything is up and running. Let's call ***actuator/gateway/routes**,* which gives the list of all services registered in kubernetes.
 
 ![Spring Cloud Gateway Routes](/assets/spring-cloud-gateway-routes.png "Spring Cloud Gateway Routes")
 
-So we are all setup, now to verify if routing is actually working. Let's send an request to booking application using route **_/booking-service/hello_** and below is the result.
+So we are all setup, now to verify if routing is actually working. Let's send an request to booking application using route ***/booking-service/hello*** and below is the result.
 
 ![Booking application response](/assets/spring-gateway-kube-booking.png "Booking application response")
 
-Let's send another request to **_/booking-service/hello_** and below is the result.
+Let's send another request to ***/booking-service/hello*** and below is the result.
 
 ![Tracking application resposne](/assets/spring-gateway-kube-tracking.png "Tracking application resposne")
 
@@ -328,7 +327,7 @@ Congratulations, we are ready with our API Gateway for kubernetes.
 The entire source code is available in the [repository](https://github.com/nitishkumar71/blog/tree/master/spring-cloud-gateway-in-kubernetes). In case you are running your application in minikube like me just follow below steps
 
 * start minikube using command `minkube start`
-* download repository and move to the folder **_spring-cloud-gateway-in-kubernetes_** 
+* download repository and move to the folder ***spring-cloud-gateway-in-kubernetes*** 
 * execute [deploy-script.sh](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/deploy-script.sh), which will build docker images in minikube docker environment. 
 * Execute [clean-up.sh](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/clean-up.sh) to destroy all configurations, once you want to delete everything.
 
