@@ -64,40 +64,7 @@ Include [spring-cloud-starter-kubernetes](https://spring.io/projects/spring-clou
 
 After adding all the dependecies, your **[build.gradle](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/build.gradle)** should look something like
 
-```
-plugins {
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
-}
-
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-repositories {
-	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-}
-
-ext {
-    set('springCloudVersion', 'Hoxton.SR8')
-}
-
-dependencies {
-	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes'
-    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-	testImplementation ('org.springframework.boot:spring-boot-starter-test')
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
-}
-```
+###### EDIT: Spring Cloud Ribbion support is deprecated in Spring Cloud gateway. Instead it will use Sprint Loadbalancer for same. All the examples and github repo are updated for Spring Loadbalancer
 
 That's it, we don't need to add any additional code for gateway to work. Now let's create the configuration file ***[application.yml](https://github.com/nitishkumar71/blog/blob/master/spring-cloud-gateway-in-kubernetes/gateway/src/main/resources/application.yml)*** in **src/main/resources** as shown below
 
@@ -310,7 +277,7 @@ Let's see if all of our gateway application is up and running with tracking and 
 
 ![Deployment in Kubernetes](/assets/spring-cloud-gateway-kube-pods.png "Deployment in Kubernetes")
 
-Since everything is up and running. Let's call ***actuator/gateway/routes**,* which gives the list of all services registered in kubernetes.
+Since everything is up and running. Let's call **\*actuator/gateway/routes**,* which gives the list of all services registered in kubernetes.
 
 ![Spring Cloud Gateway Routes](/assets/spring-cloud-gateway-routes.png "Spring Cloud Gateway Routes")
 
