@@ -23,6 +23,7 @@ Before looking at final configuration let's understand few terms and about appli
 * **mod_wsgi**: It provides an Apache module based on the python [WSGI](https://www.python.org/dev/peps/pep-3333/) specification. WSGI standard helps to setup an standard interface between web-servers and web-frameworks. The idea behind WSGI to have server and application. server will invoke your application. There could be some "middleware" too which helps both side to communicate with each other. I would recommend to read [WSGI](https://www.python.org/dev/peps/pep-3333/) specification to understand more about it.  [mod_wsgi](https://modwsgi.readthedocs.io/en/develop/index.html) allows to deploy code for frameworks like like Django, Flask, Pyramid and etc
 * **Movie App**: We have built an django application named imdb. This is an simple application which returns a list of movies already populated into the sqllite DB. We will not deep dive into the how rest APIs can be built into Django app. We have already exposed an API `/movie` which will return list of movies.
 
+  ![Application Folder Structure](assets/django_apache_project_structure.png "Application Folder Structure")
 
   Let's look at the `wsgi.py` present inside `imdb/imdb` folder. wsgi.py file is entrypoint for mod_wsgi to call the application. Later in article we will see how we provide entry-point for our application to apache module of mod_wsgi. There is a small change we have done so that the `imdb` app will have it's own process. We will deep dive further into this later in the article.
 
@@ -74,7 +75,5 @@ WSGIPythonPath /var/www/imdb
     </Directory>
 </VirtualHost>
 ```
-
-
 
 Daemon Mode
