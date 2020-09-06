@@ -1,6 +1,6 @@
 ---
 date: 2020-09-02T17:57:02.361Z
-title: Django Production Deployment using Apache Server and Docker
+title: Django Production Deployment using Apache Server
 tags:
   - docker
   - django
