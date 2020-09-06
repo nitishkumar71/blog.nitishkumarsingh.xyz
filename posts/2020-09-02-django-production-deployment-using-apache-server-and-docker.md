@@ -49,9 +49,7 @@ application = get_wsgi_application()
 
 Django app will have line number 14 by default, which will cause app to share the process with other applications hosted by mod_wsgi in the same machine. By commenting line number 14 and adding line number 15, we are instructing mod_wsgi to use separate process for this application.
 
-
-
 Apache allows to host applications in three ways Embedded, Daemon and Event mode. We will only talk about first two in the this article.
 
-* Embedded Mode
+* **Embedded Mode**: This mode is also know prefork mode. This is the default mode for the apache server. In this mode both the proxy and the response processes are being managed by apache only which is why it's called embedded mode.
 * Daemon Mode
