@@ -16,7 +16,7 @@ Building an software application using different algorithms, data-structures, fr
 
 To understand it's importance assume you have an application like imdb which will provide information related to movies, actors and their works. The expected workload on average could be 1000 requests per second with 300ms serving time for each request. The numbers are not quite high for some SQL db based application right? But without proper configuration applications will not be able serve even 100 request per second. Are you thinking we can increase just the number of servers to server more request as cloud providers allows to scale very quickly. Don't do that, it's possible that you will spend more money than you will generate.
 
-The correct configuration to maximize the throughput of application is not just limited to properly configuring web-servers but also databases, messaging queues and other components of the entire application. In this article we will focus on how we can configure [Django](https://www.djangoproject.com/) application on [Apache web-server](https://httpd.apache.org/) to maximize the output. We will not talk about why should we use an server to host our applications. I would recommend you to search about it on your own.
+The correct configuration to maximize the throughput of application is not just limited to properly configuring web-servers but also databases, messaging queues and other components of the entire application. In this article we will focus on how we can configure [Django](https://www.djangoproject.com/) application on [Apache web-server](https://httpd.apache.org/) on Unix based operating system to maximize the output. We will not talk about why should we use an server to host our applications. I would recommend you to search about it on your own.
 
 Before looking at final configuration let's understand few terms and about application
 
@@ -51,16 +51,29 @@ Django app will have line number 14 by default, which will cause app to share th
 
 Apache allows to host applications in three ways Embedded, Daemon and Event mode. We will only talk about first two in the this article.
 
-* **Embedded Mode**: This mode is also known as prefork mode, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the apache server. In this mode both the proxy and the response processes are being managed by apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. An sample of configuration file will be as shown below
+* **Embedded Mode**: This mode is also known as prefork mode, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the Apache server. In this mode both the proxy and the response processes are being managed by Apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. Let's discuss about the configuration shown below
+
+  * **Virtual Host**: This is the block where we mention the application entry-point to mod_wsgi. All the settings shown inside virtual host willl be common for deamon and embedded mode. In case of deamon mode there will be few additional settings
+
+    * **ServerName**: It can be the domain name by which we want to access the application or it can be the IP address of the server
+    * **WSGIScriptAlias**: It is used to specify physical path of the wsgi script for the given application
+    * **WSGIApplicationGroup**: It is used to group the applications hosted in single server. If there are multiple applications hosted in, we can group them to use the same python sub interpreter. If there is single applicaton you can set it **%{GLOBAL}**
+    * **Directory-Files**: This makes sure that apache can access wsgi.py file
+  * **WSGIPythonPath**: This allows wsgi to search python modules. As Django application is bult of modules and wsgi.py shown above tries to access imdb module.
+  * **mpm_prefork_module**: Here we set the configuration for our server. As in embedded mode requests are served by process. So, we will look here what is the meaning of each directive
+
+    * **StartServer**: The number of server process which should be active by default when server starts. Be cautious of the number you set here. As each process is an copy of the application you want to run and each one of it will reserve memory for itself. So setting very high number will throw you out of memory and processes will compete with each other to get memory without serving any request.
+
+      **MinSpareServers**: It represents the number of ideal servers, who will be up and running but will not serve any request.
 
 ```xml
 <IfModule mpm_prefork_module>
    StartServers 2
    MinSpareServers 2
    MaxSpareServers 6
-   MaxClients 30
-   ServerLimit 30
-   MaxRequestsPerChild 5
+   MaxRequestWorkers 30
+   #ServerLimit
+   #MaxConnectionsPerChild 5
 </IfModule>
 
 WSGIPythonPath /var/www/imdb
@@ -76,4 +89,4 @@ WSGIPythonPath /var/www/imdb
 </VirtualHost>
 ```
 
-Daemon Mode
+**Daemon Mode**: This is know as worker mode and implemented by [mpm_worker_module](https://httpd.apache.org/docs/2.4/mod/worker.html)
