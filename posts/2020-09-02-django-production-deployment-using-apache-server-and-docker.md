@@ -211,3 +211,9 @@ Daemon mode does not works properly on Alpine Linux. The issue has been there fo
 
 * [https://github.com/GrahamDumpleton/mod_wsgi/issues/455](<* https://github.com/GrahamDumpleton/mod_wsgi/issues/455>)
 * [https://modwsgi.narkive.com/WAUhcjDB/wsgidaemonprocess-segfault-inside-docker-alpine-linux](<* https://modwsgi.narkive.com/WAUhcjDB/wsgidaemonprocess-segfault-inside-docker-alpine-linux>)
+
+To verify in which mode Apache server is running you can use `apache2ctl -V` in Debian or `httpd -V` Alpine.
+
+![Apache Server Mode](assets/apache_mode_2020-09-08-20-05-53.png "Apache Server Mode")
+
+You can look at **Server MPM** section which will consist **worker** for **Daemon mode** and **prefork** for **Embedded**.
