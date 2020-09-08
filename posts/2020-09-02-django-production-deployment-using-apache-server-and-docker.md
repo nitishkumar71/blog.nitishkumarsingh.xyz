@@ -51,7 +51,7 @@ Django app will have line number 14 by default, which will cause app to share th
 
 Apache allows to host applications in three ways Embedded, Daemon and Event mode. We will only talk about first two in the this article.
 
-**Embedded Mode**: This mode is also known as prefork mode, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the Apache server. In this mode both the proxy and the response processes are being managed by Apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. 
+**Embedded Mode**: This mode is also known as **prefork mode**, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the Apache server. In this mode both the proxy and the response processes are being managed by Apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. 
 
 ![Embedded Mode](/assets/embedded_mode_apache.png "Embedded Mode Representations")
 
@@ -97,7 +97,7 @@ WSGIPythonPath /var/www/imdb
 
 In case of embedded mode it's better to use default settings of Apache, until you are not an expert in Apache configuration and you understand working of Apache well. As in embedded mode process are created and killed frequently, it puts a lot of pressure on the system.
 
-**Daemon Mode**: This is know as worker mode and implemented by [mpm_worker_module](https://httpd.apache.org/docs/2.4/mod/worker.html). Worker mode implements a multi-process and multi-threaded approach to where the requests will be handled by threads instead of process. As the cost of creation and context switch for threads are quite less compared to process. We can refer the below diagram for better understanding
+**Daemon Mode**: This is know as **worker mode** and implemented by [mpm_worker_module](https://httpd.apache.org/docs/2.4/mod/worker.html). Worker mode implements a multi-process and multi-threaded approach to where the requests will be handled by threads instead of process. As the cost of creation and context switch for threads are quite less compared to process. We can refer the below diagram for better understanding
 
 ![Deamon Mode](assets/deamon_mode_apache.png "Deamon Mode")
 
