@@ -205,9 +205,9 @@ We can use the same steps as embedded docker file to run daemon mode docker file
 
 Let's end this post for now and we will see the difference in performance in some other post. You can find the source code for this post in following [link](https://github.com/nitishkumar71/blog/tree/master/django-apache).
 
-##### Before we Are you thinking why we are using Debian version instead of Alpine for Daemon mode?
+##### Before we close the post, are you thinking why we are using Debian version instead of Alpine for Daemon mode?
 
-Daemon mode does not works properly on Alpine Linux. The issue has been there for quite sometime. You can see following below links. Actually there is not much difference in the size of Alpine and Debian Slim buster container.
+Daemon mode does not works properly on Alpine Linux. The issue has been there for quite sometime. You can see following below links. Actually there is not much difference in the size of Alpine and Debian Slim buster container, it almost just 100 Mb.
 
 * [https://github.com/GrahamDumpleton/mod_wsgi/issues/455](<* https://github.com/GrahamDumpleton/mod_wsgi/issues/455>)
 * [https://modwsgi.narkive.com/WAUhcjDB/wsgidaemonprocess-segfault-inside-docker-alpine-linux](<* https://modwsgi.narkive.com/WAUhcjDB/wsgidaemonprocess-segfault-inside-docker-alpine-linux>)
