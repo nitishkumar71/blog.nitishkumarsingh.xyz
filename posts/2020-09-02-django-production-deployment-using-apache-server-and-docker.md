@@ -176,7 +176,7 @@ EXPOSE 80
 CMD ["httpd-foreground"]
 ```
 
-Run Docker file from the [django-apache](https://github.com/nitishkumar71/blog/tree/master/django-apache) folder in your local ```docker build -f Dockerfile.embedded .``` to build docker image, which will return an image id once image is built, use image_id with the command ```docker run -d -p 8000:80 image_id```, This will run an container in your local and you can access the application on local port 8000 of your machine. Use `curl http://localhost:8000/movie` to access list of movies available in SQLite db.
+Run Docker file from the [django-apache](https://github.com/nitishkumar71/blog/tree/master/django-apache) folder in your local ```docker build -f Dockerfile.embedded .``` to build docker image, which will return an image id once image is built, use image_id with the command `docker run -d -p 8000:80 image_id` , This will run an container in your local and you can access the application on local port 8000 of your machine. Use `curl http://localhost:8000/movie` to access list of movies available in SQLite db.
 
 **Daemon Mode**
 
