@@ -99,7 +99,7 @@ In case of embedded mode it's better to use default settings of Apache, until yo
 
 **Daemon Mode**: This is know as **worker mode** and implemented by [mpm_worker_module](https://httpd.apache.org/docs/2.4/mod/worker.html). Worker mode implements a multi-process and multi-threaded approach to where the requests will be handled by threads instead of process. As the cost of creation and context switch for threads are quite less compared to process. We can refer the below diagram for better understanding
 
-![Deamon Mode](assets/deamon_mode_apache.png "Deamon Mode")
+![Deamon Mode](/assets/deamon_mode_apache.png "Deamon Mode")
 
 Here the parent process will maintain the worker process and worker processes will handle threads which will serve the request. Each request will be passed to thread. Here Apache will only work as proxy which will accept request and pass the request to one of the threads, hence reducing the wait time for users. Daemon mode configuration of Apache is more forgiving, as even if you have not done the configuration properly it will not consume all resources. Let's see an configuration sample for example
 
