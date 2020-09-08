@@ -287,7 +287,7 @@ So we are all setup, now to verify if routing is actually working. Let's send an
 
 Let's send another request to ***/booking-service/hello*** and below is the result.
 
-![Tracking application resposne](/assets/spring-gateway-kube-tracking.png "Tracking application resposne")
+![Tracking application resposne](/assets/spring-gateway-kube-tracking.png "Tracking application response")
 
 Congratulations, we are ready with our API Gateway for kubernetes.
 
