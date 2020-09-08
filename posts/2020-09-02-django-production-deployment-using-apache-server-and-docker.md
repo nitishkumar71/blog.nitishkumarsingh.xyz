@@ -10,7 +10,7 @@ tags:
 excerpt: Do you use python manage.py runserver to deploy web applications
   written in django? Please don't do it. Learn in this post how to deploy it in
   production using docker and apache webserver
-draft: true
+draft: false
 ---
 Building an software application using different algorithms, data-structures, frameworks, databases and messaging queues which can solve the mentioned problem efficiently and effectively. This is the first part of solving the problem. The second part is to deploy and maintain the application for high scalability and availability. This is as important as developing algorithms and building software applications.
 
