@@ -51,20 +51,23 @@ Django app will have line number 14 by default, which will cause app to share th
 
 Apache allows to host applications in three ways Embedded, Daemon and Event mode. We will only talk about first two in the this article.
 
-* **Embedded Mode**: This mode is also known as prefork mode, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the Apache server. In this mode both the proxy and the response processes are being managed by Apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. Let's discuss about the configuration shown below
+* **Embedded Mode**: This mode is also known as prefork mode, this is implemented by [Apache MPM prefork](https://httpd.apache.org/docs/2.4/mod/prefork.html) module. This is the default mode for the Apache server. In this mode both the proxy and the response processes are being managed by Apache only which is why it's called embedded mode. This mode is suitable for non-threaded applications or libraries. Here process are the ones which serve the request. Each process is isolated from another process. So even if there is an issue with one process, another will not be affected due to it. 
 
-  * **Virtual Host**: This is the block where we mention the application entry-point to mod_wsgi. All the settings shown inside virtual host willl be common for deamon and embedded mode. In case of deamon mode there will be few additional settings
+  ![Embedded Mode](assets/embedded_mode_apache.png "Embedded Mode Representations")
 
-    * **ServerName**: It can be the domain name by which we want to access the application or it can be the IP address of the server
-    * **WSGIScriptAlias**: It is used to specify physical path of the wsgi script for the given application
-    * **WSGIApplicationGroup**: It is used to group the applications hosted in single server. If there are multiple applications hosted in, we can group them to use the same python sub interpreter. If there is single applicaton you can set it **%{GLOBAL}**
-    * **Directory-Files**: This makes sure that apache can access wsgi.py file
-  * **WSGIPythonPath**: This allows wsgi to search python modules. As Django application is bult of modules and wsgi.py shown above tries to access imdb module.
-  * **mpm_prefork_module**: Here we set the configuration for our server. As in embedded mode requests are served by process. So, we will look here what is the meaning of each directive
+  Let's discuss about the configuration shown below
+* **Virtual Host**: This is the block where we mention the application entry-point to mod_wsgi. All the settings shown inside virtual host willl be common for deamon and embedded mode. In case of deamon mode there will be few additional settings
 
-    * **StartServer**: The number of server process which should be active by default when server starts. Be cautious of the number you set here. As each process is an copy of the application you want to run and each one of it will reserve memory for itself. So setting very high number will throw you out of memory and processes will compete with each other to get memory without serving any request.
+  * **ServerName**: It can be the domain name by which we want to access the application or it can be the IP address of the server
+  * **WSGIScriptAlias**: It is used to specify physical path of the wsgi script for the given application
+  * **WSGIApplicationGroup**: It is used to group the applications hosted in single server. If there are multiple applications hosted in, we can group them to use the same python sub interpreter. If there is single applicaton you can set it **%{GLOBAL}**
+  * **Directory-Files**: This makes sure that apache can access wsgi.py file
+* **WSGIPythonPath**: This allows wsgi to search python modules. As Django application is bult of modules and wsgi.py shown above tries to access imdb module.
+* **mpm_prefork_module**: Here we set the configuration for our server. As in embedded mode requests are served by process. So, we will look here what is the meaning of each directive
 
-      **MinSpareServers**: It represents the number of ideal servers, who will be up and running but will not serve any request.
+  * **StartServer**: The number of server process which should be active by default when server starts. Be cautious of the number you set here. As each process is an copy of the application you want to run and each one of it will reserve memory for itself. So setting very high number will throw you out of memory and processes will compete with each other to get memory without serving any request.
+
+    **MinSpareServers**: It represents the number of ideal servers, who will be up and running but will not serve any request.
 
 ```xml
 <IfModule mpm_prefork_module>
