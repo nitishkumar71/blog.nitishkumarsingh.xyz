@@ -33,3 +33,62 @@ go get -u github.com/spf13/cobra/cobra
 There should be only two files named `go.mod` and `go.sum` in your folder. Update the folder structure as per below screenshot, we will discuss about the content of each file seperately later in the post
 
 ![GO CLI App Folder Structure](/assets/screenshot-from-2020-11-17-08-31-49.png "GO CLI App Folder Structure")
+
+Let's talk about `main.go` first. It's the entrypoint for the CLI application
+
+```go
+package main
+
+import "github.com/nitishkumar71/blog/go-cli/cmd"
+
+func main() {
+	cmd.Execute()
+}
+```
+
+Let's talk about `root.go`, this is the main command under which all the sub-commands will be nested
+
+```go
+package cmd
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/spf13/cobra"
+)
+
+var rootCmd = &cobra.Command{
+	Use:   "go-cli",
+	Short: "go-cli is sample cli tool for demo purpose ",
+	Long: `go-cli is an sample cli tool being built for demo purpose.
+		It will be used to give demo og cobra library`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// Do Stuff Here
+		fmt.Println("PProvide sub-command")
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(createNewFileCommand())
+	rootCmd.AddCommand(createNewDirectoryCommand())
+}
+
+// Execute functionn is the entry point for command
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+```
+
+The `rootCmd` defines the main command with name `go-cli`. Cobra provides different options for the command we will talk about only a few. 
+
+* **Use**: Defines the name for the root or sub-command
+* **Short**: Provides short description of the command
+* **Long**: Provides long description of the command
+* **Run**: It's the function which will execute when we call the given command or sub-command
+
+`init` function gets executed at the start of the application. `AddCommand` function is used to add the sub-command for the root. We will discuss about `createNewFileCommand` and `createNewDirectoryCommand` function later in the post, for now just understand that it returns the same structure as `rootCmd`.
