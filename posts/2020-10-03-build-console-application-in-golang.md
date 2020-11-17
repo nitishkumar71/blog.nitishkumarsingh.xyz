@@ -19,3 +19,17 @@ There has been situations when we would have build some shell script or somethin
 * capability to define help and usage section
 * ability to define mandatory and optional parameters
 * intelligent suggestion capabilities
+
+Let's jump and see how we can build an CLI application step by step.
+
+Initialize golang application, replace module name with your module name. Install Cobra module in your golang application
+
+```shell
+mkdir go-cli
+go mod init github.com/nitishkumar71/blog/go-cli
+go get -u github.com/spf13/cobra/cobra
+```
+
+There should be only two files named `go.mod` and `go.sum` in your folder. Update the folder structure as per below screenshot, we will discuss about the content of each file seperately later in the post
+
+![GO CLI App Folder Structure](/assets/screenshot-from-2020-11-17-08-31-49.png "GO CLI App Folder Structure")
