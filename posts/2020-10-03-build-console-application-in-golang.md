@@ -8,7 +8,7 @@ excerpt: Have you used Kubernetes or some other CNCF projects which are built on
   Golang. You would have surely used some CLI tool to interact with them like
   kubectl and etc. Have you ever thought how these tools are built? Let's
   explore the same in this post.
-draft: true
+draft: false
 ---
 There has been situations when we would have build some shell script or something for some mundane task and we have been creating script for it and sharing it with team members. We need to accept parameter and give appropriate error messages, building such script need quite good amount of time. What if we can create an binary and share it with whoever we want. What if we have an framework, which can facilitate in building cli applications?
 
@@ -208,3 +208,11 @@ Run the command from the folder of the application
 It will generate an `binary` named `go-cli` in bin folder of golang application
 
 ## Demo
+
+![GO CLI Demo](/assets/go_cli_demo.gif "GO CLI Demo")
+
+
+
+## Github Repo
+
+Please follow the [link](https://github.com/nitishkumar71/blog/tree/master/go-cli) for repository
