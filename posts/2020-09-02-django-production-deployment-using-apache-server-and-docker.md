@@ -1,5 +1,5 @@
 ---
-date: 2020-11-18T17:57:02.361Z
+date: 2020-10-02T17:57:02.361Z
 title: Django Production Deployment on Apache Server
 tags:
   - docker
