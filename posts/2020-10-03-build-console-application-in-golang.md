@@ -1,5 +1,5 @@
 ---
-date: 2020-10-03T19:06:20.648Z
+date: 2020-11-17T19:06:20.648Z
 title: Build Console Application in Golang
 tags:
   - console
