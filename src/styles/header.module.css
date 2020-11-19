@@ -20,7 +20,8 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  width: 760px;
+  /* width: 760px; */
+  width: 70%;
   max-width: 100%;
 }
 
