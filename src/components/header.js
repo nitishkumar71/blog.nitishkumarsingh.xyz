@@ -45,13 +45,15 @@ class Header extends React.Component {
 
   render() {
     const {
+      siteUrl,
       siteLogo,
       logoText,
       siteTitle,
       mainMenu,
       mainMenuItems,
       menuMoreText,
-      theme,
+      rssFeed,
+      theme
     } = this.props
     const { userTheme, isSubMenuVisible, isMobileMenuVisible } = this.state
 
@@ -75,12 +77,12 @@ class Header extends React.Component {
                 {/* {siteLogo.src ? (
                   <img src={siteLogo.src} alt={siteLogo.alt} />
                 ) : (
-                  <>
-                    <span className={style.mark}>></span>
-                    <span className={style.text}>{logoText}</span>
-                    <span className={style.cursor} />
-                  </>
-                )} */}
+                    <>
+                      <span className={style.mark}>></span>
+                      <span className={style.text}>{logoText}</span>
+                      <span className={style.cursor} />
+                    </>
+                  )} */}
                 <span className={style.text}>{siteLogo.alt}</span>
               </div>
             </Link>
@@ -95,6 +97,9 @@ class Header extends React.Component {
                 onToggleSubMenu={this.onToggleSubMenu}
                 onChangeTheme={this.onChangeTheme}
               />
+              <a href={rssFeed.path} target="_blank" className={style.rss}>
+                <img src={rssFeed.src} alt={rssFeed.alt}/>
+              </a>
             </span>
           </div>
         </header>
@@ -104,6 +109,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  siteUrl: PropTypes.string,
   siteTitle: PropTypes.string,
   siteLogo: PropTypes.object,
   logoText: PropTypes.string,
@@ -116,6 +122,7 @@ Header.propTypes = {
   ),
   mainMenuItems: PropTypes.number,
   menuMoreText: PropTypes.string,
+  rssFeed: PropTypes.object,
 }
 
 export default Header

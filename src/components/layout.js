@@ -27,6 +27,12 @@ const Layout = ({ children }) => (
             }
             showMenuItems
             menuMoreText
+            siteUrl
+            rssFeed {
+              src
+              alt
+              path
+            }
           }
         }
       }
@@ -34,6 +40,7 @@ const Layout = ({ children }) => (
     render={data => (
       <div className="container">
         <Header
+          siteUrl={data.site.siteMetadata.siteUrl}
           siteTitle={data.site.siteMetadata.title}
           siteLogo={data.site.siteMetadata.logo}
           logoText={data.site.siteMetadata.logoText}
@@ -41,6 +48,7 @@ const Layout = ({ children }) => (
           mainMenu={data.site.siteMetadata.mainMenu}
           mainMenuItems={data.site.siteMetadata.showMenuItems}
           menuMoreText={data.site.siteMetadata.menuMoreText}
+          rssFeed={data.site.siteMetadata.rssFeed}
         />
         <div className="content">{children}</div>
         <footer>
@@ -49,7 +57,7 @@ const Layout = ({ children }) => (
           ) : (
             <>
               <span className="footerCopyrights">
-                © 2019 <a href="https:/nitishkumarsingh.xyz/">Nitishkumar Singh</a>
+                © 2019 <a href="https:/nitishkumarsingh.xyz/" target="_blank">Nitishkumar Singh</a>
               </span>
             </>
           )}

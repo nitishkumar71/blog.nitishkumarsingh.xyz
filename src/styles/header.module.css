@@ -60,6 +60,12 @@
   position: relative;
 }
 
+.rss{
+  & img {
+    height: 1.2rem;
+  }
+}
+
 @keyframes cursor {
   0% { opacity: 0; }
   50% { opacity: 1; }

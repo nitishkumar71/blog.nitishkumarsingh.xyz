@@ -21,6 +21,11 @@ module.exports = {
     showMenuItems: 2,
     menuMoreText: 'Show more',
     siteUrl: 'https://blog.nitishkumarsingh.xyz',
+    rssFeed: {
+      src: '/rss-feed-2.svg',
+      alt: 'RSS Feed',
+      path: '/rss.xml'
+    },
     mainMenu: [
       {
         title: 'About',
