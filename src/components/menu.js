@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
+import { Link, Img } from 'gatsby'
 
 import Icon from './icon'
 
@@ -12,7 +12,9 @@ const MainMenu = ({ mainMenu, mainMenuItems, isMobileMenu }) => {
 
   return menu.map((menuItem, index) => (
     <li key={index}>
-    <a href={menuItem.path} target={menuItem.target}>{menuItem.title}</a>
+      <a href={menuItem.path} target={menuItem.target}>
+        <img src={menuItem.img} alt={menuItem.title}/>
+      </a>
       {/* <Link to={menuItem.path} target={menuItem.target}>{menuItem.title}</Link> */}
     </li>
   ))
@@ -24,7 +26,9 @@ const SubMenu = ({ mainMenu, mainMenuItems, onToggleSubMenu }) => {
 
   const items = menu.map((menuItem, index) => (
     <li key={index}>
-      <Link to={menuItem.path}>{menuItem.title}</Link>
+      <Link to={menuItem.path}>
+        <img src={menuItem.img} alt={menuItem.title} />
+      </Link>
     </li>
   ))
 
@@ -112,13 +116,13 @@ const Menu = ({
           ) : null}
         </ul>
       </div>
-      {/* <button
+      <button
         className={style.themeToggle}
         onClick={onChangeTheme}
         type="button"
       >
         <Icon style={{ cursor: 'pointer' }} size={24} d={toggleIcon} />
-      </button> */}
+      </button>
     </>
   )
 }
@@ -128,7 +132,8 @@ Menu.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       path: PropTypes.string,
-      target: PropTypes.string,      
+      target: PropTypes.string,
+      img: PropTypes.string,
     }),
   ),
   mainMenuItems: PropTypes.number,
@@ -146,6 +151,7 @@ SubMenu.propTypes = {
       title: PropTypes.string,
       path: PropTypes.string,
       target: PropTypes.string,
+      img: PropTypes.string,
     }),
   ),
   mainMenuItems: PropTypes.number,

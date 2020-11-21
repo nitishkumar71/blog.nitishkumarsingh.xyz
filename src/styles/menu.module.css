@@ -51,6 +51,9 @@
     &:last-of-type {
       margin-right: 0;
     }
+    img {
+      width: 1rem;
+    }
   }
 }
 
@@ -80,6 +83,9 @@
     a {
       display: block;
       padding: 10px 15px;
+      img {
+        width: 1rem;
+      }
     }
   }
 

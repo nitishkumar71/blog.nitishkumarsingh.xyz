@@ -24,6 +24,7 @@ const Layout = ({ children }) => (
               title
               path
               target
+              img
             }
             showMenuItems
             menuMoreText

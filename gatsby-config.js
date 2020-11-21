@@ -12,11 +12,11 @@ module.exports = {
     copyrights: '',
     author: `Nitishkumar Singh`,
     logo: {
-      src: 'static/myAvatar.svg',
+      src: '/myAvatar.svg',
       alt: 'A lot of lengthy talks!',
     },
     logoText: `A lot of lengthy talks!`,
-    defaultTheme: 'light',
+    defaultTheme: 'dark',
     postsPerPage: 10,
     showMenuItems: 2,
     menuMoreText: 'Show more',
@@ -30,7 +30,14 @@ module.exports = {
       {
         title: 'About',
         path: 'https://twitter.com/Nitishkumar071',
-        target: '_blank'
+        target: '_blank',
+        img: '/myAvatar.svg'
+      },
+      {
+        title: 'RSS',
+        path: '/rss.xml',
+        target: '_blank',
+        img: '/rss-feed-2.svg'
       }
     ],
   },

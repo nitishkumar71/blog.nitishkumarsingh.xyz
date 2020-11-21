@@ -9,10 +9,10 @@ import style from '../styles/header.module.css'
 
 class Header extends React.Component {
   state = {
-    // userTheme:
-    //   (typeof window !== 'undefined' && window.localStorage.getItem('theme')) ||
-    //   null,
-    userTheme: 'light',
+    userTheme:
+      (typeof window !== 'undefined' && window.localStorage.getItem('theme')) ||
+      null,
+    // userTheme: 'dark',
     isMobileMenuVisible: false,
     isSubMenuVisible: false,
   }
@@ -24,8 +24,8 @@ class Header extends React.Component {
   onToggleSubMenu = this.onToggleSubMenu.bind(this)
 
   onChangeTheme() {
-    // const { userTheme } = this.state
-    const { userTheme } = 'light'
+    const { userTheme } = this.state
+    // const { userTheme } = 'dark'
     const opositeTheme =
       userTheme === 'dark' || userTheme === null ? 'light' : 'dark'
     this.setState({ userTheme: opositeTheme })
@@ -62,28 +62,30 @@ class Header extends React.Component {
         <Helmet>
           <title>{siteTitle}</title>
           <body
-            // className={
-            //   (userTheme || theme) === 'light' ? 'light-theme' : 'dark-theme'
-            // }
             className={
-              'light-theme'
+              (userTheme || theme) === 'light' ? 'light-theme' : 'dark-theme'
             }
+          // className={
+          //   'dark-theme'
+          // }
           />
         </Helmet>
         <header className={style.header}>
           <div className={style.inner}>
             <Link to="/">
               <div className={style.logo}>
-                {/* {siteLogo.src ? (
-                  <img src={siteLogo.src} alt={siteLogo.alt} />
-                ) : (
-                    <>
-                      <span className={style.mark}>></span>
-                      <span className={style.text}>{logoText}</span>
-                      <span className={style.cursor} />
-                    </>
-                  )} */}
-                <span className={style.text}>{siteLogo.alt}</span>
+                {
+                  // siteLogo.src ? (
+                  //   <img src={siteLogo.src} alt={siteLogo.alt} />
+                  // ) : (
+                  <>
+                    {/* <span className={style.mark}>></span> */}
+                    <span className={style.text}>{logoText}</span>
+                    <span className={style.cursor} />
+                  </>
+                  // )
+                }
+                {/* <span className={style.text}>{siteLogo.alt}</span> */}
               </div>
             </Link>
             <span className={style.right}>
@@ -97,9 +99,9 @@ class Header extends React.Component {
                 onToggleSubMenu={this.onToggleSubMenu}
                 onChangeTheme={this.onChangeTheme}
               />
-              <a href={rssFeed.path} target="_blank" className={style.rss}>
-                <img src={rssFeed.src} alt={rssFeed.alt}/>
-              </a>
+              {/* <a href={rssFeed.path} target="_blank" className={style.rss}>
+                <img src={rssFeed.src} alt={rssFeed.alt} />
+              </a> */}
             </span>
           </div>
         </header>
@@ -118,6 +120,7 @@ Header.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       path: PropTypes.string,
+      img: PropTypes.string,
     }),
   ),
   mainMenuItems: PropTypes.number,
