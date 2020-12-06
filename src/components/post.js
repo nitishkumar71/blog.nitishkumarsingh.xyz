@@ -30,7 +30,7 @@ const Post = ({
   return (
     <div className={style.post}>
       <div className={style.postContent}>
-        <h1>{excerpt ? <Link to={slug}>{title}</Link> : title}</h1>
+        <h1>{excerpt ? <Link to={slug} class="head">{title}</Link> : title}</h1>
         <div className={style.meta}>
           {date}
         </div>
