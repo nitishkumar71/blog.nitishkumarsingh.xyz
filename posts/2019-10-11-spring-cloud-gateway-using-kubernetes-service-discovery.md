@@ -102,7 +102,7 @@ management:
       enabled: true
 ```
 
-In above file `spring.cloud.gateway.discovery.locator.enabled` is used to enable dynamic service discovery with the help of [etcd](https://github.com/etcd-io/etcd) which is used by kubernetes to store current state of kubernetes cluster. `include-expression` only includes kubernetes services which contains metadata key `expose` with value `true`. We can customize it for any other key value pair.
+In above file `spring.cloud.gateway.discovery.locator.enabled` is used to enable dynamic service discovery with the help of [etcd](https://github.com/etcd-io/etcd) which is used by kubernetes to store current state of kubernetes cluster.
 
 It also store the information about service and deployments. remaining configuration such as ***logging*** and ***management*** are used for logging the information and actuator endpoints respectively.
 
