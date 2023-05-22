@@ -3,6 +3,9 @@ date: 2023-05-22T12:39:48.590Z
 title: Instrument Go applications using OpenTelemetry
 tags:
   - golang
+  - opentelemetry
+  - otel
+  - metric
 excerpt: Learn about to how to instrument go application using OpenTelemetry.
 draft: false
 ---
