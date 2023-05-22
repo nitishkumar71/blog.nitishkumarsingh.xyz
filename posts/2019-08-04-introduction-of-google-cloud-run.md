@@ -1,17 +1,16 @@
 ---
 date: 2019-08-04T13:32:11.884Z
 title: Introduction of Google Cloud Run
-draft: false
 tags:
   - serverless
   - cloudrun
   - gcp
   - aws
-excerpt: >-
-  Google Cloud Run is a managed service that enables you to run stateless
+excerpt: Google Cloud Run is a managed service that enables you to run stateless
   containers that are invocable via web requests or Cloud Pub/Sub events. It
   manages all infrastructure management, so developers can focus on building
   applications.
+draft: false
 ---
 There has been always pretty much hype around serverless from the day one. Although, all the workload is only going to run on servers itself. If that is the case, then why we call it serverless?
 
@@ -53,10 +52,9 @@ In other managed frameworks, we are dependent on cloud providers to support and 
 
 ![Cloud Run Django app](/assets/cloud_run_django_app.png "Cloud Run Django app")
 
-1. There will be no _**Dockerfile**_ and _**httpd-foreground**_ by default, when Django application gets created.
+1. There will be no ***Dockerfile*** and ***httpd-foreground*** by default, when Django application gets created.
 2. **Write Docker File**
    We won't be covering details about how this dockerfile works in this blog post.
-
 
 ```
         FROM alpine:3.9
@@ -109,6 +107,7 @@ In other managed frameworks, we are dependent on cloud providers to support and 
         RUN pip install -r requirements.txt; chown apache:apache /etc/apache2/; \
         chown -R apache:apache /var/www/
         COPY httpd-foreground /usr/local/bin/
+        RUN chmod +x /usr/local/bin/httpd-foreground
         EXPOSE 8080
         # ENTRYPOINT ["httpd", "-D", "FOREGROUND", "-e", "info", "&"]
         CMD ["httpd-foreground"]
@@ -117,7 +116,6 @@ In other managed frameworks, we are dependent on cloud providers to support and 
    Here we are exposing application on port 8080(default for Cloud  Run) and executing httpd-foreground file.
 
 3. **Write httpd-foreground file**
-
 
 ```
         #!/bin/sh
@@ -136,7 +134,7 @@ In other managed frameworks, we are dependent on cloud providers to support and 
    `sudo docker build .`
    [Tag image to upload to GCR](https://cloud.google.com/container-registry/docs/pushing-and-pulling#tag_the_local_image_with_the_registry_name)
    `sudo docker tag <IMAGE_ID> asia.gcr.io/<project_name>/my_django_app`
-   [Push Image to GCR](https://cloud.google.com/container-registry/docs/pushing-and-pulling#push_the_tagged_image_to)``
+   [Push Image to GCR](https://cloud.google.com/container-registry/docs/pushing-and-pulling#push_the_tagged_image_to)
    `sudo docker push asia.gcr.io/<project_name>/my_django_app`
 5. **Create Cloud Run Service**
    Open Cloud Run Portal, and click on **create service**
@@ -147,7 +145,7 @@ In other managed frameworks, we are dependent on cloud providers to support and 
 
 ![Cloud Run with options](/assets/cloud-run-service-with-options.png "Cloud Run with options")
 
-4. As, you would have noticed, you can set environment variables as well as configure multiple [Cloud SQL services](https://cloud.google.com/sql/docs/), which are needed to be accessed by Cloud RUN. You should only select [**_Allow unauthenticated invocations_**](https://cloud.google.com/run/docs/authenticating/public), if and only if you want to allow end-points to be publicly accessible.
+4. As, you would have noticed, you can set environment variables as well as configure multiple [Cloud SQL services](https://cloud.google.com/sql/docs/), which are needed to be accessed by Cloud RUN. You should only select ***[Allow unauthenticated invocations](https://cloud.google.com/run/docs/authenticating/public)***, if and only if you want to allow end-points to be publicly accessible.
    After selecting all the required options, your form will look something like this.
 
 ![Cloud Run With completed options](/assets/screenshot_my_django_app_cloud_run.png "Cloud Run With completed options")
@@ -162,5 +160,5 @@ In other managed frameworks, we are dependent on cloud providers to support and 
 
 **References**
 
-* [**Google Cloud Run on VM and GKE**](https://twitter.com/ahmetb/status/1116041166359654400/photo/1)
-* [**Google Cloud Run Docs**](https://cloud.google.com/run/docs/)
+* **[Google Cloud Run on VM and GKE](https://twitter.com/ahmetb/status/1116041166359654400/photo/1)**
+* **[Google Cloud Run Docs](https://cloud.google.com/run/docs/)**
